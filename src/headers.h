@@ -51,6 +51,7 @@
 #include "types.h"
 
 #include "character.h"
+#include "color.h"
 #include "dice.h"
 #include "ui.h"           // before dungeon.h
 #include "inventory.h"    // before game.h
