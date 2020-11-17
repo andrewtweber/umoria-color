@@ -41,6 +41,7 @@ typedef struct {
     Dice_t hit_die;             // Creatures hit die
     uint8_t damage[4];          // Type attack and damage
     uint8_t level;              // Level of creature
+    Color_t color;              // Color
 } Creature_t;
 
 // MonsterAttack_t is a base data object.
