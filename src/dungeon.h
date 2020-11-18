@@ -36,7 +36,7 @@ typedef struct {
     int16_t to_ac;             // Plusses to AC
     Dice_t damage;             // Damage when hits
     uint8_t depth_first_found; // Dungeon level item first found
-    Color_t color;             // Color
+    int color;                 // Color
 } DungeonObject_t;
 
 typedef struct {
