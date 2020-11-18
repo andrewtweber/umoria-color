@@ -227,6 +227,7 @@ bool playerSavingThrow();
 
 void playerGainKillExperience(Creature_t const &creature);
 void playerOpenClosedObject();
+void openClosedDoor(Coord_t coord);
 void playerCloseDoor();
 bool playerTunnelWall(Coord_t coord, int digging_ability, int digging_chance);
 void playerAttackPosition(Coord_t coord);

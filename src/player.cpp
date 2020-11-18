@@ -1237,7 +1237,7 @@ static int16_t playerLockPickingSkill() {
     return skill;
 }
 
-static void openClosedDoor(Coord_t coord) {
+void openClosedDoor(Coord_t coord) {
     Tile_t &tile = dg.floor[coord.y][coord.x];
     Inventory_t &item = game.treasure.list[tile.treasure_id];
 
