@@ -221,6 +221,9 @@ int displayEquipment(bool weighted, int column) {
             continue;
         }
 
+        int color = itemColor(&py.inventory[i], false);
+        setColor(color);
+
         // don't need first two spaces when using whole screen
         if (column == 0) {
             putStringClearToEOL(descriptions[line], Coord_t{line + 1, column});
@@ -228,6 +231,8 @@ int displayEquipment(bool weighted, int column) {
             putString("  ", Coord_t{line + 1, column});
             putStringClearToEOL(descriptions[line], Coord_t{line + 1, column + 2});
         }
+
+        clearColor(color);
 
         if (weighted) {
             obj_desc_t text = {'\0'};
