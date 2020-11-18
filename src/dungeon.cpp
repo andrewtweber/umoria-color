@@ -211,6 +211,69 @@ char caveGetTileSymbol(Coord_t const &coord) {
     return '%';
 }
 
+// Returns color for given row, column -EMP-
+int caveGetTileColor(Coord_t const &coord) {
+    Tile_t const &tile = dg.floor[coord.y][coord.x];
+
+    if (tile.creature_id == 1 && ((py.running_tracker == 0) || config::options::run_print_self)) {
+        return Color_White;
+    }
+
+    if ((py.flags.status & config::player::status::PY_BLIND) != 0u) {
+        return Color_White;
+    }
+
+    if (py.flags.image > 0 && randomNumber(12) == 1) {
+        return Color_Random;
+    }
+
+    if (tile.creature_id > 1 && monsters[tile.creature_id].lit) {
+        return creatures_list[monsters[tile.creature_id].creature_id].color;
+    }
+
+    if (!tile.permanent_light && !tile.temporary_light && !tile.field_mark) {
+        return Color_White;
+    }
+
+    if (tile.treasure_id != 0 && game.treasure.list[tile.treasure_id].category_id != TV_INVIS_TRAP) {
+        switch (game.treasure.list[tile.treasure_id].category_id) {
+            case TV_AMULET:
+                return amulet_colors[game.treasure.list[tile.treasure_id].sub_category_id & (ITEM_SINGLE_STACK_MIN - 1)];
+            case TV_RING:
+                return rock_colors[game.treasure.list[tile.treasure_id].sub_category_id & (ITEM_SINGLE_STACK_MIN - 1)];
+            case TV_STAFF:
+                return wood_colors[game.treasure.list[tile.treasure_id].sub_category_id & (ITEM_SINGLE_STACK_MIN - 1)];
+            case TV_WAND:
+                return metal_colors[game.treasure.list[tile.treasure_id].sub_category_id & (ITEM_SINGLE_STACK_MIN - 1)];
+            case TV_POTION1:
+            case TV_POTION2:
+                return potion_colors[game.treasure.list[tile.treasure_id].sub_category_id & (ITEM_SINGLE_STACK_MIN - 1)];
+            case TV_FOOD:
+                return mushroom_colors[game.treasure.list[tile.treasure_id].sub_category_id & (ITEM_SINGLE_STACK_MIN - 1)];
+            default:
+                return game_objects[game.treasure.list[tile.treasure_id].id].color;
+        }
+    }
+
+    if (tile.feature_id <= MAX_CAVE_FLOOR) {
+        return Color_Floor;
+    }
+
+    if (tile.feature_id == TILE_GRANITE_WALL || tile.feature_id == TILE_BOUNDARY_WALL || !config::options::highlight_seams) {
+        return Color_Wall;
+    }
+
+    if (tile.feature_id == TILE_MAGMA_WALL) {
+        return Color_Magma;
+    }
+
+    if (tile.feature_id == TILE_QUARTZ_WALL) {
+        return Color_Quartz;
+    }
+
+    return Color_Default;
+}
+
 // Tests a spot for light or field mark status -RAK-
 bool caveTileVisible(Coord_t const &coord) {
     return dg.floor[coord.y][coord.x].permanent_light || dg.floor[coord.y][coord.x].temporary_light || dg.floor[coord.y][coord.x].field_mark;
