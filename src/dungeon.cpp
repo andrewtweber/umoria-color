@@ -448,7 +448,7 @@ void dungeonLightRoom(Coord_t const &coord) {
                         tile.field_mark = true;
                     }
                 }
-                panelPutTile(caveGetTileSymbol(location), location);
+                panelPutTile(caveGetTileSymbol(location), caveGetTileColor(location), location);
             }
         }
     }
@@ -461,7 +461,7 @@ void dungeonLiteSpot(Coord_t const &coord) {
     }
 
     char symbol = caveGetTileSymbol(coord);
-    panelPutTile(symbol, coord);
+    panelPutTile(symbol, caveGetTileColor(coord), coord);
 }
 
 // Normal movement
@@ -524,7 +524,7 @@ static void sub1MoveLight(Coord_t const &from, Coord_t const &to) {
     for (coord.y = top; coord.y <= bottom; coord.y++) {
         // Leftmost to rightmost do
         for (coord.x = left; coord.x <= right; coord.x++) {
-            panelPutTile(caveGetTileSymbol(coord), coord);
+            panelPutTile(caveGetTileSymbol(coord), caveGetTileColor(coord), coord);
         }
     }
 }
@@ -538,17 +538,17 @@ static void sub3MoveLight(Coord_t const &from, Coord_t const &to) {
         for (coord.y = from.y - 1; coord.y <= from.y + 1; coord.y++) {
             for (coord.x = from.x - 1; coord.x <= from.x + 1; coord.x++) {
                 dg.floor[coord.y][coord.x].temporary_light = false;
-                panelPutTile(caveGetTileSymbol(coord), coord);
+                panelPutTile(caveGetTileSymbol(coord), caveGetTileColor(coord), coord);
             }
         }
 
         py.temporary_light_only = false;
     } else if ((py.running_tracker == 0) || config::options::run_print_self) {
-        panelPutTile(caveGetTileSymbol(from), from);
+        panelPutTile(caveGetTileSymbol(from), caveGetTileColor(from), from);
     }
 
     if ((py.running_tracker == 0) || config::options::run_print_self) {
-        panelPutTile('@', to);
+        panelPutTile('@', Color_White, to);
     }
 }
 

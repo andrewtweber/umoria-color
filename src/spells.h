@@ -51,6 +51,7 @@ bool spellDetectMonsters();
 void spellLightLine(Coord_t coord, int direction);
 void spellStarlite(Coord_t coord);
 bool spellDisarmAllInDirection(Coord_t coord, int direction);
+int spellGetColor(int spell_type);
 void spellFireBolt(Coord_t coord, int direction, int damage_hp, int spell_type, const std::string &spell_name);
 void spellFireBall(Coord_t coord, int direction, int damage_hp, int spell_type, const std::string &spell_name);
 void spellBreath(Coord_t coord, int monster_id, int damage_hp, int spell_type, const std::string &spell_name);
