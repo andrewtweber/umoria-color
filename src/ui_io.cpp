@@ -40,6 +40,12 @@ bool terminalInitialize() {
     initscr();
     start_color();
 
+    for (int i = 0; i < MAX_COLORS; i++) {
+        Color_t color_obj = colors[i];
+        init_color(i + 9, (int) ((color_obj.R * 1000) / 255), (int) ((color_obj.G * 1000) / 255), (int) ((color_obj.B * 1000) / 255));
+        init_pair(i + 1, i + 9, COLOR_BLACK);
+    }
+
     // Check we have enough screen. -CJS-
     if (LINES < 24 || COLS < 80) {
         (void) printf("Screen too small for moria.\n");
@@ -199,16 +205,13 @@ void panelPutTile(char ch, int color, Coord_t coord) {
     coord.y -= dg.panel.row_prt;
     coord.x -= dg.panel.col_prt;
 
-    Color_t color_obj = colors[color];
-    init_color(COLOR_RED, color_obj.R, color_obj.G, color_obj.B);
-    init_pair(1, COLOR_WHITE, COLOR_RED);
-    attron(COLOR_PAIR(1));
+    attron(COLOR_PAIR(color + 1));
 
     if (mvaddch(coord.y, coord.x, ch) == ERR) {
         abort();
     }
 
-    attroff(COLOR_PAIR(1));
+    attroff(COLOR_PAIR(color + 1));
 }
 
 static Coord_t currentCursorPosition() {
