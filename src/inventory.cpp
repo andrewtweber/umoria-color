@@ -444,9 +444,86 @@ static bool damageMinusAC(uint32_t typ_dam) {
     return minus;
 }
 
+/* JCW
+   Returns the store/inventory/equipment colour for any given item.
+   "knowall" is used because items in the store don't seem to be given the
+   full set of "player has identified..." flags (because we know player
+   has "identified" everything in the store)... so pass in TRUE for store
+   calls, and FALSE if you don't want to tip off the player to the fact
+   that an item in his/her inventory is magical!
+*/
+int itemColor(Inventory_t *item, bool know_all) {
+    int type = item->category_id;
+
+    /* before anything else, check if its damned */
+    if (item->identification & config::identification::ID_DAMD) {
+        return Color_Damned;
+    }
+
+    /* return green if its known magik */
+    if (item->identification & config::identification::ID_MAGIK) {
+        return Color_Magik;
+    }
+
+    /* return mid grey if its known empty */
+    /* (not sure about this one)          */
+    if (item->identification & config::identification::ID_EMPTY) { 
+        return Color_Empty;
+    }
+
+    if (type == TV_AMULET) {
+        return Color_Inventory_Amulet;
+    }
+
+    if (type == TV_RING) {
+        return Color_Inventory_Ring;
+    }
+
+    if (type == TV_WAND) {
+        return Color_Inventory_Wand;
+    }
+
+    if (type == TV_STAFF) {
+        return Color_Inventory_Staff;
+    }
+
+    if (type == TV_POTION1 || type == TV_POTION2) {
+        return Color_Inventory_Potion;
+    }
+
+    /* Is it a magical book/scroll - return parchment colour */
+    if (type == TV_SCROLL1 || type == TV_SCROLL2) {
+        return Color_Inventory_Scroll;
+    }
+
+    if (type == TV_MAGIC_BOOK || type == TV_PRAYER_BOOK) {
+        return Color_Inventory_Book;
+    }
+
+    if (!know_all) { /* Do we check if player knows about the enchantment? */
+        if ((!(item->identification & config::identification::ID_KNOWN2))) {
+            return Color_Inventory_Misc;
+        }
+    }
+
+    /* Cursed armour/weapon items are red */
+    if (item->flags & config::treasure::flags::TR_CURSED) {
+        return Color_Damned;
+    }
+
+    /* Does it have magical plusses? This should catch special things like HA
+     weapons & R armour, 'cos they usually have plusses as well...
+    */
+    if (item->to_hit > 0 || item->to_damage > 0 || item->to_ac > 0) {
+        return Color_Inventory_Enchanted;
+    }
+
+    return Color_Inventory_Misc;
+}
+
 // Functions to emulate the original Pascal sets
 bool setNull(Inventory_t *item) {
-    (void) item; // silence warnings
+    (void) item; // silence warnings    
     return false;
 }
 
