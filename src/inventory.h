@@ -90,6 +90,7 @@ bool inventoryCanCarryItem(Inventory_t const &item);
 int inventoryCarryItem(Inventory_t &new_item);
 bool inventoryFindRange(int item_id_start, int item_id_end, int &j, int &k);
 void inventoryItemCopyTo(int from_item_id, Inventory_t &to_item);
+int itemColor(Inventory_t *item, bool know_all);
 
 bool setNull(Inventory_t *item);
 bool setFrostDestroyableItems(Inventory_t *item);

@@ -153,8 +153,16 @@ void addChar(char ch, Coord_t coord) {
     }
 }
 
+void setColor(int color) {
+    attron(COLOR_PAIR(color + 1));
+}
+
+void clearColor(int color) {
+    attroff(COLOR_PAIR(color + 1));
+}
+
 // Dump IO to buffer -RAK-
-void putString(const char *out_str, Coord_t coord) {
+void putString(const char *out_str, Coord_t coord, int color) {
     // truncate the string, to make sure that it won't go past right edge of screen.
     if (coord.x > 79) {
         coord.x = 79;
@@ -164,8 +172,14 @@ void putString(const char *out_str, Coord_t coord) {
     (void) strncpy(str, out_str, (size_t)(79 - coord.x));
     str[79 - coord.x] = '\0';
 
+    if (color != -1) {
+        setColor(color);
+    }
     if (mvaddstr(coord.y, coord.x, str) == ERR) {
         abort();
+    }
+    if (color != -1) {
+        clearColor(color);
     }
 }
 
@@ -208,13 +222,11 @@ void panelPutTile(char ch, int color, Coord_t coord) {
     coord.y -= dg.panel.row_prt;
     coord.x -= dg.panel.col_prt;
 
-    attron(COLOR_PAIR(color + 1));
-
+    setColor(color);
     if (mvaddch(coord.y, coord.x, ch) == ERR) {
         abort();
     }
-
-    attroff(COLOR_PAIR(color + 1));
+    clearColor(color);
 }
 
 static Coord_t currentCursorPosition() {
