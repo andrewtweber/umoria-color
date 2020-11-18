@@ -184,14 +184,14 @@ void putString(const char *out_str, Coord_t coord, int color) {
 }
 
 // Outputs a line to a given y, x position -RAK-
-void putStringClearToEOL(const std::string &str, Coord_t coord) {
+void putStringClearToEOL(const std::string &str, Coord_t coord, int color) {
     if (coord.y == MSG_LINE && message_ready_to_print) {
         printMessage(CNIL);
     }
 
     (void) move(coord.y, coord.x);
     clrtoeol();
-    putString(str.c_str(), coord);
+    putString(str.c_str(), coord, color);
 }
 
 // Clears given line of text -RAK-
