@@ -156,8 +156,15 @@ void statsAsString(uint8_t stat, char *stat_string) {
 void displayCharacterStats(int stat) {
     char text[7];
     statsAsString(py.stats.used[stat], text);
-    putString(stat_names[stat], Coord_t{6 + stat, STAT_COLUMN});
-    putString(text, Coord_t{6 + stat, STAT_COLUMN + 6});
+    int color = Color_OK;
+    if (py.stats.current[stat] <= py.stats.max[stat] / 5) {
+        color = Color_Warning;
+    } else if (py.stats.current[stat] < py.stats.max[stat]) {
+        color = Color_Attention;
+    }
+
+    putString(stat_names[stat], Coord_t{6 + stat, STAT_COLUMN}, Color_Sub_Title);
+    putString(text, Coord_t{6 + stat, STAT_COLUMN + 6}, color);
 }
 
 // Print character info in given row, column -RAK-
@@ -498,12 +505,19 @@ void printCharacterStats() {
         vtype_t buf = {'\0'};
 
         statsAsString(py.stats.used[i], buf);
-        putString(stat_names[i], Coord_t{2 + i, 61});
-        putString(buf, Coord_t{2 + i, 66});
+        int color = Color_OK;
+        if (py.stats.current[i] <= py.stats.max[i] / 5) {
+            color = Color_Warning;
+        } else if (py.stats.current[i] < py.stats.max[i]) {
+            color = Color_Attention;
+        }
+
+        putString(stat_names[i], Coord_t{2 + i, 61}, Color_Sub_Title);
+        putString(buf, Coord_t{2 + i, 66}, color);
 
         if (py.stats.max[i] > py.stats.current[i]) {
             statsAsString(py.stats.max[i], buf);
-            putString(buf, Coord_t{2 + i, 73});
+            putString(buf, Coord_t{2 + i, 73}, Color_Title);
         }
     }
 
