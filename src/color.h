@@ -249,6 +249,8 @@ typedef struct {
 #define Color_Poison_Gas       174
 #define Color_Holy_Orb         175
 
+#define MAX_COLORS             176
+
 /* defined as a special case... */
 #define Color_Opal             255
 #define Color_Multi_Hued       255
