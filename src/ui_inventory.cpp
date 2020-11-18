@@ -72,6 +72,9 @@ int displayInventory(int item_id_start, int item_id_end, bool weighted, int colu
             continue;
         }
 
+        int color = itemColor(&py.inventory[i], false);
+        setColor(color);
+
         // don't need first two spaces if in first column
         if (column == 0) {
             putStringClearToEOL(descriptions[i], Coord_t{current_line, column});
@@ -79,6 +82,8 @@ int displayInventory(int item_id_start, int item_id_end, bool weighted, int colu
             putString("  ", Coord_t{current_line, column});
             putStringClearToEOL(descriptions[i], Coord_t{current_line, column + 2});
         }
+
+        clearColor(color);
 
         if (weighted) {
             obj_desc_t text = {'\0'};
