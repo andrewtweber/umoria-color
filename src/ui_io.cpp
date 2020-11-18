@@ -14,6 +14,8 @@
 
 static bool curses_on = false;
 
+extern Color_t colors[255];
+
 // Spare window for saving the screen. -CJS-
 static WINDOW *save_screen;
 
@@ -39,6 +41,7 @@ static void moriaTerminalInitialize() {
 // initializes the terminal / curses routines
 bool terminalInitialize() {
     initscr();
+    start_color();
 
     // Check we have enough screen. -CJS-
     if (LINES < 24 || COLS < 80) {
@@ -194,14 +197,21 @@ void panelMoveCursor(Coord_t coord) {
 
 // Outputs a char to a given interpolated y, x position -RAK-
 // sign bit of a character used to indicate standout mode. -CJS
-void panelPutTile(char ch, Coord_t coord) {
+void panelPutTile(char ch, int color, Coord_t coord) {
     // Real coords convert to screen positions
     coord.y -= dg.panel.row_prt;
     coord.x -= dg.panel.col_prt;
 
+    Color_t color_obj = colors[color];
+    init_color(COLOR_RED, color_obj.R, color_obj.G, color_obj.B);
+    init_pair(1, COLOR_WHITE, COLOR_RED);
+    attron(COLOR_PAIR(1));
+
     if (mvaddch(coord.y, coord.x, ch) == ERR) {
         abort();
     }
+
+    attroff(COLOR_PAIR(1));
 }
 
 static Coord_t currentCursorPosition() {

@@ -69,7 +69,7 @@ void putString(const char *out_str, Coord_t coord);
 void putStringClearToEOL(const std::string &str, Coord_t coord);
 void eraseLine(Coord_t coord);
 void panelMoveCursor(Coord_t coord);
-void panelPutTile(char ch, Coord_t coord);
+void panelPutTile(char ch, int color, Coord_t coord);
 void messageLinePrintMessage(std::string message);
 void messageLineClear();
 void printMessage(const char *msg);

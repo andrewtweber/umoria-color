@@ -96,7 +96,7 @@ void drawDungeonPanel() {
         for (coord.x = dg.panel.left; coord.x <= dg.panel.right; coord.x++) {
             char ch = caveGetTileSymbol(coord);
             if (ch != ' ') {
-                panelPutTile(ch, coord);
+                panelPutTile(ch, caveGetTileColor(coord), coord);
             }
         }
     }
