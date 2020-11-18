@@ -129,9 +129,14 @@ static void displayStoreInventory(Store_t &store, int item_pos_start) {
         // Restore the number of items
         item.items_count = (uint8_t) current_item_count;
 
+        int color = itemColor(&item, true);
+        setColor(color);
+
         obj_desc_t msg = {'\0'};
         (void) sprintf(msg, "%c) %s", 'a' + item_line_num, description);
         putStringClearToEOL(msg, Coord_t{item_line_num + 5, 0});
+
+        clearColor(color);
 
         current_item_count = store.inventory[item_pos_start].cost;
 
