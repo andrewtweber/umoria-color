@@ -51,41 +51,6 @@ typedef struct {
 #define Color_Amber            27
 #define Color_Driftwood        28
 #define Color_Coral            29
-/* Greys */
-#define Color_White            0
-#define Color_Light_Grey_High  1
-#define Color_Light_Grey_Low   2
-#define Color_Medium_Grey_High 3
-#define Color_Medium_Grey_Low  4
-#define Color_Dark_Grey_High   5
-#define Color_Dark_Grey_Low    6
-#define Color_Black            7
-
-/* Standard */
-#define Color_Light_Red        8
-#define Color_Light_Green      9
-#define Color_Light_Yellow     10
-#define Color_Light_Blue       11
-#define Color_Light_Orange     12
-#define Color_Light_Purple     13
-#define Color_Red              14
-#define Color_Green            15
-#define Color_Yellow           16
-#define Color_Blue             17
-#define Color_Orange           18
-#define Color_Purple           19   /* Now a Major Motion Picture */
-#define Color_Dark_Red         20
-#define Color_Dark_Green       21
-#define Color_Dark_Yellow      22
-#define Color_Dark_Blue        23
-#define Color_Dark_Orange      24
-#define Color_Dark_Purple      25
-#define Color_Cream            26
-
-/* Amulets */
-#define Color_Amber            27
-#define Color_Driftwood        28
-#define Color_Coral            29
 #define Color_Agate            30
 #define Color_Ivory            31
 #define Color_Obsidian         32
