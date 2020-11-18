@@ -9,7 +9,7 @@
 #include "headers.h"
 
 // Following are arrays for descriptive pieces
-const char *colors[MAX_COLORS] = {
+const char *potions[MAX_POTIONS] = {
     // Do not move the first three
     "Icky Green",  "Light Brown",  "Clear",
     "Azure", "Blue", "Blue Speckled", "Black", "Brown", "Brown Speckled", "Bubbling",
@@ -22,7 +22,7 @@ const char *colors[MAX_COLORS] = {
     "Tangerine", "Violet", "Vermilion", "White", "Yellow",
 };
 
-const char potion_color[MAX_COLORS] = {
+int potion_colors[MAX_POTIONS] = {
     Color_Icky_Green, Color_Light_Brown, Color_Clear,
     Color_Azure, Color_Blue, Color_Blue, Color_Black, Color_Brown,
     Color_Brown, Color_Bubbling, Color_Chartreuse, Color_Cloudy,
@@ -44,7 +44,7 @@ const char *mushrooms[MAX_MUSHROOMS] = {
     "Slimy", "Tan", "White", "White Spotted", "Wooden", "Wrinkled", "Yellow",
 };
 
-const char mushroom_color[MAX_MUSHROOMS] = {
+int mushroom_colors[MAX_MUSHROOMS] = {
     Color_Blue, Color_Black, Color_Black, Color_Brown, Color_Dark_Blue,
     Color_Dark_Green, Color_Dark_Red, Color_Ecru, Color_Furry, 
     Color_Green, Color_Medium_Grey_High, Color_Light_Blue,
@@ -59,7 +59,7 @@ const char *woods[MAX_WOODS] = {
     "Teak", "Walnut",
 };
 
-const char wood_color[MAX_WOODS] = {
+int wood_colors[MAX_WOODS] = {
     Color_Aspen, Color_Balsa, Color_Banyan, Color_Birch, Color_Cedar,
     Color_Cottonwood, Color_Cypress, Color_Dogwood, Color_Elm,
     Color_Eucalyptus, Color_Hemlock, Color_Hickory, Color_Ironwood,
@@ -75,7 +75,7 @@ const char *metals[MAX_METALS] = {
     "Nickel-Plated", "Silver-Plated", "Steel-Plated", "Tin-Plated", "Zinc-Plated",
 };
 
-const char metal_color[MAX_METALS] = {
+int metal_colors[MAX_METALS] = {
     Color_Aluminum, Color_Cast_Iron, Color_Chromium, Color_Copper,
     Color_Gold, Color_Iron, Color_Magnesium, Color_Molybdenum,
     Color_Nickel, Color_Rusty, Color_Silver, Color_Steel, Color_Tin,
@@ -92,7 +92,7 @@ const char *rocks[MAX_ROCKS] = {
     "Tiger Eye", "Topaz", "Turquoise", "Zircon",
 };
 
-const char rock_color[MAX_ROCKS] = {
+int rock_colors[MAX_ROCKS] = {
     Color_Alexandrite, Color_Amethyst, Color_Aquamarine, Color_Azurite,
     Color_Beryl, Color_Bloodstone, Color_Calcite, Color_Carnelian,
     Color_Corundum, Color_Diamond, Color_Emerald, Color_Fluorite,
@@ -108,7 +108,7 @@ const char *amulets[MAX_AMULETS] = {
     "Bone", "Brass", "Bronze", "Pewter", "Tortoise Shell",
 };
 
-const char amulet_color[MAX_AMULETS] = {
+int amulet_colors[MAX_AMULETS] = {
     Color_Amber, Color_Driftwood, Color_Coral, Color_Agate, Color_Ivory,
     Color_Obsidian, Color_Bone, Color_Brass, Color_Bronze, Color_Pewter,
     Color_Tortoise_Shell
