@@ -69,7 +69,7 @@ enum SpecialNameIds {
     SN_ARRAY_SIZE, // 56th item (size value for arrays)
 };
 
-constexpr uint8_t MAX_COLORS = 49;     // Used with potions
+constexpr uint8_t MAX_POTIONS = 49;    // Used with potions
 constexpr uint8_t MAX_MUSHROOMS = 22;  // Used with mushrooms
 constexpr uint8_t MAX_WOODS = 25;      // Used with staffs
 constexpr uint8_t MAX_METALS = 25;     // Used with wands
@@ -82,13 +82,21 @@ extern uint8_t objects_identified[OBJECT_IDENT_SIZE];
 extern const char *special_item_names[SpecialNameIds::SN_ARRAY_SIZE];
 
 // Following are arrays for descriptive pieces
-extern const char *colors[MAX_COLORS];
+extern const char *potions[MAX_POTIONS];
 extern const char *mushrooms[MAX_MUSHROOMS];
 extern const char *woods[MAX_WOODS];
 extern const char *metals[MAX_METALS];
 extern const char *rocks[MAX_ROCKS];
 extern const char *amulets[MAX_AMULETS];
 extern const char *syllables[MAX_SYLLABLES];
+
+// And for colors
+extern int potion_colors[MAX_POTIONS];
+extern int mushroom_colors[MAX_MUSHROOMS];
+extern int wood_colors[MAX_WOODS];
+extern int metal_colors[MAX_METALS];
+extern int rock_colors[MAX_ROCKS];
+extern int amulet_colors[MAX_AMULETS];
 
 void identifyGameObject();
 

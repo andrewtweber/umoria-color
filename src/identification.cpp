@@ -235,47 +235,77 @@ void magicInitializeItemNames() {
 
     seedSet(game.magic_seed);
 
-    // The first 3 entries for colors are fixed, (slime & apple juice, water)
-    for (int i = 3; i < MAX_COLORS; i++) {
-        id = randomNumber(MAX_COLORS - 3) + 2;
-        const char *color = colors[i];
-        colors[i] = colors[id];
-        colors[id] = color;
+    // The first 3 entries for potions are fixed, (slime & apple juice, water)
+    for (int i = 3; i < MAX_POTIONS; i++) {
+        id = randomNumber(MAX_POTIONS - 3) + 2;
+        const char *potion = potions[i];
+        potions[i] = potions[id];
+        potions[id] = potion;
+
+        // color
+        const int potion_color = potion_colors[i];
+        potion_colors[i] = potion_colors[id];
+        potion_colors[id] = potion_color;
     }
 
-    for (auto &w : woods) {
+    for (int i = 0; i < MAX_WOODS; i++) {
         id = randomNumber(MAX_WOODS) - 1;
-        const char *wood = w;
-        w = woods[id];
+        const char *wood = woods[i];
+        woods[i] = woods[id];
         woods[id] = wood;
+
+        // color
+        const int wood_color = wood_colors[i];
+        wood_colors[i] = wood_colors[id];
+        wood_colors[id] = wood_color;
     }
 
-    for (auto &m : metals) {
+    for (int i = 0; i < MAX_METALS; i++) {
         id = randomNumber(MAX_METALS) - 1;
-        const char *metal = m;
-        m = metals[id];
+        const char *metal = metals[i];
+        metals[i] = metals[id];
         metals[id] = metal;
+
+        // color
+        const int metal_color = metal_colors[i];
+        metal_colors[i] = metal_colors[id];
+        metal_colors[id] = metal_color;
     }
 
-    for (auto &r : rocks) {
+    for (int i = 0; i < MAX_ROCKS; i++) {
         id = randomNumber(MAX_ROCKS) - 1;
-        const char *rock = r;
-        r = rocks[id];
+        const char *rock = rocks[i];
+        rocks[i] = rocks[id];
         rocks[id] = rock;
+
+        // color
+        const int rock_color = rock_colors[i];
+        rock_colors[i] = rock_colors[id];
+        rock_colors[id] = rock_color;
     }
 
-    for (auto &a : amulets) {
+    for (int i = 0; i < MAX_AMULETS; i++) {
         id = randomNumber(MAX_AMULETS) - 1;
-        const char *amulet = a;
-        a = amulets[id];
+        const char *amulet = amulets[i];
+        amulets[i] = amulets[id];
         amulets[id] = amulet;
+
+        // color
+        const int amulet_color = amulet_colors[i];
+        amulet_colors[i] = amulet_colors[id];
+        amulet_colors[id] = amulet_color;
     }
 
-    for (auto &m : mushrooms) {
+    for (int i = 0; i < MAX_MUSHROOMS; i++) {
         id = randomNumber(MAX_MUSHROOMS) - 1;
-        const char *mushroom = m;
-        m = mushrooms[id];
+        const char *mushroom = mushrooms[i];
+        mushrooms[i] = mushrooms[id];
         mushrooms[id] = mushroom;
+
+        // color
+        const int mushroom_color = mushroom_colors[i];
+        mushroom_colors[i] = mushroom_colors[id];
+        mushroom_colors[id] = mushroom_color;
     }
 
     int k;
@@ -622,7 +652,7 @@ void itemDescription(obj_desc_t description, Inventory_t const &item, bool add_p
         case TV_POTION2:
             if (modify) {
                 basenm = "& %s Potion~";
-                modstr = colors[indexx];
+                modstr = potions[indexx];
             } else {
                 basenm = "& Potion~";
                 append_name = true;
