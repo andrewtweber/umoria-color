@@ -816,7 +816,7 @@ int spellGetColor(int spell_type) {
         case MagicMissile:
             return Color_Magic_Missile;
         case Lightning:
-            return Color_Lightning;
+            return Color_Glowing;
         case PoisonGas:
             return Color_Poison_Gas;
         case Acid:
