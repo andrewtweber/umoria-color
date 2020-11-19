@@ -13,7 +13,7 @@ int hack_monptr = -1;
 
 static bool executeAttackOnPlayer(uint8_t creature_level, int16_t &monster_hp, int monster_id, int attack_type, int damage, vtype_t death_description, bool noticed);
 
-static bool monsterIsVisible(Monster_t const &monster) {
+bool monsterIsVisible(Monster_t const &monster) {
     bool visible = false;
 
     Tile_t const &tile = dg.floor[monster.pos.y][monster.pos.x];

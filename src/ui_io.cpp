@@ -161,25 +161,13 @@ int setColor(int color) {
     if (color == Color_Random) {
         color = (randint(5) == 1) ? (randint(6) - 1) : (randint(8) + 7);
     } else if (color == Color_Fire) {
-        int fire = randint(5);
-        switch (fire) {
-            case 1:
-                color = Color_Vermilion;
-                break;
-            case 2:
-                color = Color_Orange;
-                break;
-            case 3:
-                color = Color_Red;
-                break;
-            case 4:
-                color = Color_Light_Red;
-                break;
-            case 5:
-            default:
-                color = Color_Fire;
-                break;
-        }
+        int fire_colors[5] = {Color_Vermilion, Color_Orange, Color_Red, Color_Light_Red, Color_Fire};
+        color = fire_colors[randint(5) - 1];
+    } else if (color == Color_Glowing) {
+        color = (randint(2) == 1) ? Color_Glowing : Color_White;
+    } else if (color == Color_Lightning) {
+        int cloud_colors[6] = {Color_Lightning, Color_Deep_Black, Color_Deep_Black, Color_Deep_Black, Color_Cloudy, Color_Cloudy};
+        color = cloud_colors[randint(6) - 1];
     }
 
     attron(COLOR_PAIR(color + 1));

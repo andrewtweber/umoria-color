@@ -76,7 +76,7 @@ Color_t colors[255] = {
 {0, 176, 112,  64}, /* Color_Earth            */
 {0, 255, 255, 255}, /* Color_Air              */
 {0,  64, 224, 255}, /* Color_Frost            */
-{0, 255, 255, 255}, /* Color_Lightning        */
+{0, 240, 240, 176}, /* Color_Glowing          */
 {0, 160, 224, 160}, /* Color_Gelatinous       */
 {0, 208, 176,  64}, /* Color_Umber            */
 {0, 224, 240, 255}, /* Color_Crystal          */
@@ -185,5 +185,7 @@ Color_t colors[255] = {
 {0,  96, 192, 255}, /* Color_Magic_Missile    */
 {0, 112, 192,   0}, /* Color_Poison_Gas       */
 {0,  96,  96,  96}, /* Color_Holy_Orb         */
+{0, 240, 240, 176}, /* Color_Lightning        */
+{0,  50,  50,  64}, /* Color_Deep_Black       */
 /* All new colors to be put after this point. */
 };
