@@ -166,6 +166,9 @@ int setColor(int color) {
     } else if (color == Color_Fire) {
         int fire_colors[5] = {Color_Vermilion, Color_Orange, Color_Red, Color_Light_Red, Color_Fire};
         color = fire_colors[randint(5) - 1];
+    } else if (color == Color_Shadow_And_Flame) {
+        int fire_colors[7] = {Color_Vermilion, Color_Orange, Color_Red, Color_Light_Red, Color_Fire, Color_Deep_Black, Color_Deep_Black};
+        color = fire_colors[randint(7) - 1];
     } else if (color == Color_Glowing) {
         color = (randint(2) == 1) ? Color_Glowing : Color_White;
     } else if (color == Color_Lightning) {

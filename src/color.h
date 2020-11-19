@@ -217,8 +217,9 @@ typedef struct {
 /* New Colors */
 #define Color_Lightning        176
 #define Color_Deep_Black       177
+#define Color_Shadow_And_Flame 178
 
-#define MAX_COLORS             178
+#define MAX_COLORS             179
 
 /* defined as a special case... */
 #define Color_Random           255

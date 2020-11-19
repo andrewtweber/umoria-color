@@ -51,13 +51,13 @@ Color_t colors[255] = {
 {0, 160, 160, 176}, /* Color_Cast_Iron        */
 {0, 240, 240, 240}, /* Color_Chromium         */
 {0, 151,  92,  80}, /* Color_Copper           */
-{0, 240, 224,  96}, /* Color_Gold             */
+{0, 209, 181,  85}, /* Color_Gold             */
 {0, 176, 176, 192}, /* Color_Iron             */
 {0, 240, 240, 240}, /* Color_Magnesium        */
 {0, 240, 240, 240}, /* Color_Molybdenum       */
 {0, 240, 240, 240}, /* Color_Nickel           */
 {0, 208,  96,  32}, /* Color_Rusty            */
-{0, 255, 255, 255}, /* Color_Silver           */
+{0, 196, 202, 206}, /* Color_Silver           */
 {0, 224, 224, 240}, /* Color_Steel            */
 {0, 224, 224, 224}, /* Color_Tin              */
 {0, 160, 160, 176}, /* Color_Titanium         */
@@ -85,7 +85,7 @@ Color_t colors[255] = {
 {0, 224, 160,   0}, /* Color_Furry            */
 {0, 208, 208, 208}, /* Color_Plaid            */
 {0,  96, 176,   0}, /* Color_Slimy            */
-{0, 240, 176,   0}, /* Color_Tan              */
+{0, 210, 180, 140}, /* Color_Tan              */
 {0, 208, 144,  80}, /* Color_Wooden           */
 {0, 208, 208, 176}, /* Color_Wrinkled         */
 {0, 160, 255,   0}, /* Color_Icky_Green       */
@@ -187,5 +187,6 @@ Color_t colors[255] = {
 {0,  96,  96,  96}, /* Color_Holy_Orb         */
 {0, 240, 240, 176}, /* Color_Lightning        */
 {0,  50,  50,  64}, /* Color_Deep_Black       */
+{0, 255,  80,  64}, /* Color_Shadow_And_Flame */
 /* All new colors to be put after this point. */
 };
