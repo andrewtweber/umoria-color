@@ -10,6 +10,7 @@
 
 #include "headers.h"
 #include "version.h"
+#include "curses.h"
 
 // holds the previous rnd state
 static uint32_t old_seed;
@@ -133,6 +134,7 @@ static struct {
     {"Highlight and notice mineral seams", &config::options::highlight_seams},
     {"Beep for invalid character", &config::options::error_beep_sound},
     {"Display rest/repeat counts", &config::options::display_counts},
+    {"Show colors", &config::options::use_colors},
     {nullptr, nullptr},
 };
 
@@ -173,6 +175,11 @@ void setGameOptions() {
                 break;
             case 'y':
             case 'Y':
+                if (option_id == 11 && has_colors() == false) {
+                    terminalBellSound();
+                    break;
+                }
+
                 putString("yes", Coord_t{option_id + 1, 40});
 
                 *game_options[option_id].o_var = true;
@@ -202,7 +209,7 @@ void setGameOptions() {
     }
 }
 
-// Support for Umoria 5.2.2 up to 5.7.x.
+// Support for Umoria 5.2.2 up to 5.8.x.
 // The save file format was frozen as of version 5.2.2.
 bool validGameVersion(uint8_t major, uint8_t minor, uint8_t patch) {
     if (major != 5) {
@@ -217,7 +224,7 @@ bool validGameVersion(uint8_t major, uint8_t minor, uint8_t patch) {
         return false;
     }
 
-    return minor <= 7;
+    return minor <= 8;
 }
 
 bool isCurrentGameVersion(uint8_t major, uint8_t minor, uint8_t patch) {
