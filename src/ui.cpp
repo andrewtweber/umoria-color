@@ -166,7 +166,7 @@ void displayCharacterStats(int stat) {
         color = Color_Attention;
     }
 
-    putString(stat_names[stat], Coord_t{6 + stat, STAT_COLUMN}, Color_Sub_Title);
+    putString(stat_names[stat], Coord_t{6 + stat, STAT_COLUMN});
     putString(text, Coord_t{6 + stat, STAT_COLUMN + 6}, color);
 }
 
@@ -180,24 +180,45 @@ static void printCharacterInfoInField(const char *info, Coord_t coord, int color
 }
 
 // Print long number with header at given row, column
-static void printHeaderLongNumber(const char *header, int32_t num, Coord_t coord) {
+static void printHeaderLongNumber(const char *header, int32_t num, Coord_t coord, int color = -1) {
     vtype_t str = {'\0'};
-    (void) sprintf(str, "%s: %6d", header, num);
+    (void) sprintf(str, "%s: ", header);
     putString(str, coord);
+
+    int size = 0;
+    while (header[size] != '\0') size++;
+    Coord_t num_coord{ coord.y, coord.x + size + 2 };
+    vtype_t num_str = {'\0'};
+    (void) sprintf(num_str, "%6d", num);
+    putString(num_str, num_coord, color);
 }
 
 // Print long number (7 digits of space) with header at given row, column
-static void printHeaderLongNumber7Spaces(const char *header, int32_t num, Coord_t coord) {
+static void printHeaderLongNumber7Spaces(const char *header, int32_t num, Coord_t coord, int color = -1) {
     vtype_t str = {'\0'};
-    (void) sprintf(str, "%s: %7d", header, num);
+    (void) sprintf(str, "%s: ", header);
     putString(str, coord);
+
+    int size = 0;
+    while (header[size] != '\0') size++;
+    Coord_t num_coord{ coord.y, coord.x + size + 2 };
+    vtype_t num_str = {'\0'};
+    (void) sprintf(num_str, "%7d", num);
+    putString(num_str, num_coord, color);
 }
 
 // Print number with header at given row, column -RAK-
-static void printHeaderNumber(const char *header, int num, Coord_t coord) {
+static void printHeaderNumber(const char *header, int num, Coord_t coord, int color = -1) {
     vtype_t str = {'\0'};
-    (void) sprintf(str, "%s: %6d", header, num);
+    (void) sprintf(str, "%s: ", header);
     putString(str, coord);
+
+    int size = 0;
+    while (header[size] != '\0') size++;
+    Coord_t num_coord{ coord.y, coord.x + size + 2 };
+    vtype_t num_str = {'\0'};
+    (void) sprintf(num_str, "%6d", num);
+    putString(num_str, num_coord, color);
 }
 
 // Print long number at given row, column
@@ -224,16 +245,18 @@ void printCharacterLevel() {
     printNumber((int) py.misc.level, Coord_t{13, STAT_COLUMN + 6}, Color_OK);
 }
 
+int currentManaColor() {
+    if (py.misc.mana && py.misc.current_mana <= py.misc.mana / 5) {
+        return Color_Warning;
+    } else if (py.misc.current_mana < py.misc.mana) {
+        return Color_Attention;
+    }
+    return Color_OK;
+}
+
 // Prints players current mana points. -RAK-
 void printCharacterCurrentMana() {
-    int color = Color_OK;
-    if (py.misc.mana && py.misc.current_mana <= py.misc.mana / 5) {
-        color = Color_Warning;
-    } else if (py.misc.current_mana < py.misc.mana) {
-        color = Color_Attention;
-    }
-
-    printNumber(py.misc.current_mana, Coord_t{15, STAT_COLUMN + 6}, color);
+    printNumber(py.misc.current_mana, Coord_t{15, STAT_COLUMN + 6}, currentManaColor());
 }
 
 // Prints Max hit points -RAK-
@@ -241,16 +264,27 @@ void printCharacterMaxHitPoints() {
     printNumber(py.misc.max_hp, Coord_t{16, STAT_COLUMN + 6}, Color_OK);
 }
 
+int currentHitPointsColor() {
+    if (py.misc.current_hp <= py.misc.max_hp / 5) {
+        return Color_Warning;
+    } else if (py.misc.current_hp < py.misc.max_hp) {
+        return Color_Attention;
+    }
+    return Color_OK;
+}
+
 // Prints players current hit points -RAK-
 void printCharacterCurrentHitPoints() {
-    int color = Color_OK;
-    if (py.misc.current_hp <= py.misc.max_hp / 5) {
-        color = Color_Warning;
-    } else if (py.misc.current_hp < py.misc.max_hp) {
-        color = Color_Attention;
-    }
+    printNumber(py.misc.current_hp, Coord_t{17, STAT_COLUMN + 6}, currentHitPointsColor());
+}
 
-    printNumber(py.misc.current_hp, Coord_t{17, STAT_COLUMN + 6}, color);
+int currentExperienceColor() {
+    if (py.misc.exp <= py.misc.max_exp / 5) {
+        return Color_Warning;
+    } else if (py.misc.exp < py.misc.max_exp) {
+        return Color_Attention;
+    }
+    return Color_OK;
 }
 
 // prints current AC -RAK-
@@ -438,13 +472,13 @@ void printCharacterStatsBlock() {
         displayCharacterStats(i);
     }
 
-    printHeaderNumber("LEV ", (int) py.misc.level, Coord_t{13, STAT_COLUMN});
-    printHeaderLongNumber("EXP ", py.misc.exp, Coord_t{14, STAT_COLUMN});
-    printHeaderNumber("MANA", py.misc.current_mana, Coord_t{15, STAT_COLUMN});
-    printHeaderNumber("MHP ", py.misc.max_hp, Coord_t{16, STAT_COLUMN});
-    printHeaderNumber("CHP ", py.misc.current_hp, Coord_t{17, STAT_COLUMN});
-    printHeaderNumber("AC  ", py.misc.display_ac, Coord_t{19, STAT_COLUMN});
-    printHeaderLongNumber("GOLD", py.misc.au, Coord_t{20, STAT_COLUMN});
+    printHeaderNumber("LEV ", (int) py.misc.level, Coord_t{13, STAT_COLUMN}, Color_Title);
+    printHeaderLongNumber("EXP ", py.misc.exp, Coord_t{14, STAT_COLUMN}, currentExperienceColor());
+    printHeaderNumber("MANA", py.misc.current_mana, Coord_t{15, STAT_COLUMN}, currentManaColor());
+    printHeaderNumber("MHP ", py.misc.max_hp, Coord_t{16, STAT_COLUMN}, Color_Title);
+    printHeaderNumber("CHP ", py.misc.current_hp, Coord_t{17, STAT_COLUMN}, currentHitPointsColor());
+    printHeaderNumber("AC  ", py.misc.display_ac, Coord_t{19, STAT_COLUMN}, Color_Title);
+    printHeaderLongNumber("GOLD", py.misc.au, Coord_t{20, STAT_COLUMN}, Color_Title);
     printCharacterWinner();
 
     uint32_t status = py.flags.status;
@@ -496,10 +530,10 @@ void printCharacterInformation() {
         return;
     }
 
-    putString(py.misc.name, Coord_t{2, 15});
-    putString(character_races[py.misc.race_id].name, Coord_t{3, 15});
-    putString((playerGetGenderLabel()), Coord_t{4, 15});
-    putString(classes[py.misc.class_id].title, Coord_t{5, 15});
+    putString(py.misc.name, Coord_t{2, 15}, Color_Title);
+    putString(character_races[py.misc.race_id].name, Coord_t{3, 15}, Color_Title);
+    putString((playerGetGenderLabel()), Coord_t{4, 15}, Color_Title);
+    putString(classes[py.misc.class_id].title, Coord_t{5, 15}, Color_Title);
 }
 
 // Prints the following information on the screen. -JWT-
@@ -515,7 +549,7 @@ void printCharacterStats() {
             color = Color_Attention;
         }
 
-        putString(stat_names[i], Coord_t{2 + i, 61}, Color_Sub_Title);
+        putString(stat_names[i], Coord_t{2 + i, 61});
         putString(buf, Coord_t{2 + i, 66}, color);
 
         if (py.stats.max[i] > py.stats.current[i]) {
@@ -524,10 +558,10 @@ void printCharacterStats() {
         }
     }
 
-    printHeaderNumber("+ To Hit    ", py.misc.display_to_hit, Coord_t{9, 1});
-    printHeaderNumber("+ To Damage ", py.misc.display_to_damage, Coord_t{10, 1});
-    printHeaderNumber("+ To AC     ", py.misc.display_to_ac, Coord_t{11, 1});
-    printHeaderNumber("  Total AC  ", py.misc.display_ac, Coord_t{12, 1});
+    printHeaderNumber("+ To Hit    ", py.misc.display_to_hit, Coord_t{9, 1}, Color_Title);
+    printHeaderNumber("+ To Damage ", py.misc.display_to_damage, Coord_t{10, 1}, Color_Title);
+    printHeaderNumber("+ To AC     ", py.misc.display_to_ac, Coord_t{11, 1}, Color_Title);
+    printHeaderNumber("  Total AC  ", py.misc.display_ac, Coord_t{12, 1}, Color_Title);
 }
 
 // Returns a color of x depending on y
@@ -581,31 +615,29 @@ const char *statRating(Coord_t coord) {
 
 // Prints age, height, weight, and SC -JWT-
 void printCharacterVitalStatistics() {
-    setColor(Color_Sub_Title);
-    printHeaderNumber("Age          ", (int) py.misc.age, Coord_t{2, 38});
-    printHeaderNumber("Height       ", (int) py.misc.height, Coord_t{3, 38});
-    printHeaderNumber("Weight       ", (int) py.misc.weight, Coord_t{4, 38});
-    printHeaderNumber("Social Class ", (int) py.misc.social_class, Coord_t{5, 38});
-    clearColor(Color_Sub_Title);
+    printHeaderNumber("Age          ", (int) py.misc.age, Coord_t{2, 38}, Color_Title);
+    printHeaderNumber("Height       ", (int) py.misc.height, Coord_t{3, 38}, Color_Title);
+    printHeaderNumber("Weight       ", (int) py.misc.weight, Coord_t{4, 38}, Color_Title);
+    printHeaderNumber("Social Class ", (int) py.misc.social_class, Coord_t{5, 38}, Color_Title);
 }
 
 // Prints the following information on the screen. -JWT-
 void printCharacterLevelExperience() {
-    printHeaderLongNumber7Spaces("Level      ", (int32_t) py.misc.level, Coord_t{9, 28});
-    printHeaderLongNumber7Spaces("Experience ", py.misc.exp, Coord_t{10, 28});
-    printHeaderLongNumber7Spaces("Max Exp    ", py.misc.max_exp, Coord_t{11, 28});
+    printHeaderLongNumber7Spaces("Level      ", (int32_t) py.misc.level, Coord_t{9, 28}, Color_Title);
+    printHeaderLongNumber7Spaces("Experience ", py.misc.exp, Coord_t{10, 28}, currentExperienceColor());
+    printHeaderLongNumber7Spaces("Max Exp    ", py.misc.max_exp, Coord_t{11, 28}, Color_Title);
 
     if (py.misc.level >= PLAYER_MAX_LEVEL) {
         putStringClearToEOL("Exp to Adv.: *******", Coord_t{12, 28});
     } else {
-        printHeaderLongNumber7Spaces("Exp to Adv.", (int32_t)(py.base_exp_levels[py.misc.level - 1] * py.misc.experience_factor / 100), Coord_t{12, 28});
+        printHeaderLongNumber7Spaces("Exp to Adv.", (int32_t)(py.base_exp_levels[py.misc.level - 1] * py.misc.experience_factor / 100), Coord_t{12, 28}, Color_Title);
     }
 
-    printHeaderLongNumber7Spaces("Gold       ", py.misc.au, Coord_t{13, 28});
-    printHeaderNumber("Max Hit Points ", py.misc.max_hp, Coord_t{9, 52});
-    printHeaderNumber("Cur Hit Points ", py.misc.current_hp, Coord_t{10, 52});
-    printHeaderNumber("Max Mana       ", py.misc.mana, Coord_t{11, 52});
-    printHeaderNumber("Cur Mana       ", py.misc.current_mana, Coord_t{12, 52});
+    printHeaderLongNumber7Spaces("Gold       ", py.misc.au, Coord_t{13, 28}, Color_Title);
+    printHeaderNumber("Max Hit Points ", py.misc.max_hp, Coord_t{9, 52}, Color_Title);
+    printHeaderNumber("Cur Hit Points ", py.misc.current_hp, Coord_t{10, 52}, currentHitPointsColor());
+    printHeaderNumber("Max Mana       ", py.misc.mana, Coord_t{11, 52}, Color_Title);
+    printHeaderNumber("Cur Mana       ", py.misc.current_mana, Coord_t{12, 52}, currentManaColor());
 }
 
 // Prints ratings on certain abilities -RAK-
@@ -675,7 +707,7 @@ void getCharacterName() {
 
     if (!getStringInput(py.misc.name, Coord_t{2, 15}, 23) || py.misc.name[0] == 0) {
         getDefaultPlayerName(py.misc.name);
-        putString(py.misc.name, Coord_t{2, 15});
+        putString(py.misc.name, Coord_t{2, 15}, Color_Title);
     }
 
     clearToBottom(20);

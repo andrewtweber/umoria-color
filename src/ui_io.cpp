@@ -483,7 +483,9 @@ bool getStringInput(char *in_str, Coord_t coord, int slen) {
                 if ((isprint(key) == 0) || coord.x > end_col) {
                     terminalBellSound();
                 } else {
+                    setColor(Color_Title);
                     mvaddch(coord.y, coord.x, (char) key);
+                    clearColor(Color_Title);
                     *p++ = (char) key;
                     coord.x++;
                 }
