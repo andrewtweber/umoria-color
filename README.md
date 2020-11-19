@@ -1,4 +1,4 @@
-# Umoria
+# Umoria COLOR
 
 _The Dungeons of Moria_ is a single player dungeon simulation originally
 written by Robert Alan Koeneke, with v1.0 released in 1983. The game was
@@ -19,6 +19,18 @@ Compiling and limited testing done for:
   - NetBSD 8.1 (with gcc 5.5)
   - Fedora 32
 
+
+## Umoria COLOR
+
+Colour-Umoria was a patch originally written in 1993 by Edouard Poor. In 2020
+it was ported by Andrew Weber as a fork of the modernized Umoria restoration
+release.
+
+* The correct spelling of "color" is now used 🇺🇸🦅🗽
+* Many colors and color assignments were adjusted
+* Roguelike controls are now disabled by default to encourage new players to try the game out
+* Walking into a door will attempt to open it automatically without having to press the `'o'` key
+* Fire, lightning, and glowing effects were added
 
 ## Umoria Restoration Release: v5.7
 
