@@ -65,7 +65,7 @@ void clearScreen();
 void clearToBottom(int row);
 void moveCursor(Coord_t coord);
 void addChar(char ch, Coord_t coord);
-void setColor(int color);
+int setColor(int color);
 void clearColor(int color);
 void putString(const char *out_str, Coord_t coord, int color = -1);
 void putStringClearToEOL(const std::string &str, Coord_t coord, int color = -1);

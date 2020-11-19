@@ -158,7 +158,8 @@ int randint(int max) {
     return min + (rand() % static_cast<int>(max - min + 1));
 }
 
-void setColor(int color) {
+// For random/fire effect, returns the color that was actually used so that we can clear it
+int setColor(int color) {
     /* Edouard's (self-confessed) hacky random-color calculation ... */
     if (color == Color_Random) {
         color = (randint(5) == 1) ? (randint(6) - 1) : (randint(8) + 7);
@@ -185,14 +186,11 @@ void setColor(int color) {
     }
 
     attron(COLOR_PAIR(color + 1));
+    return color;
 }
 
 void clearColor(int color) {
-    if (color == Color_Random) {
-        attron(Color_Default);
-    } else {
-        attroff(COLOR_PAIR(color + 1));
-    }
+    attroff(COLOR_PAIR(color + 1));
 }
 
 // Dump IO to buffer -RAK-
@@ -207,7 +205,7 @@ void putString(const char *out_str, Coord_t coord, int color) {
     str[79 - coord.x] = '\0';
 
     if (color != -1) {
-        setColor(color);
+        color = setColor(color);
     }
     if (mvaddstr(coord.y, coord.x, str) == ERR) {
         abort();
@@ -256,7 +254,7 @@ void panelPutTile(char ch, int color, Coord_t coord) {
     coord.y -= dg.panel.row_prt;
     coord.x -= dg.panel.col_prt;
 
-    setColor(color);
+    color = setColor(color);
     if (mvaddch(coord.y, coord.x, ch) == ERR) {
         abort();
     }
