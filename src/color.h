@@ -217,10 +217,10 @@ typedef struct {
 #define MAX_COLORS             176
 
 /* defined as a special case... */
-#define Color_Opal             255
-#define Color_Multi_Hued       255
-#define Color_Iridescent       255
 #define Color_Random           255
+#define Color_Opal             Color_Random
+#define Color_Multi_Hued       Color_Random
+#define Color_Iridescent       Color_Random
 
 /* Defined as previous values */
 #define Color_Input                Color_Light_Blue
