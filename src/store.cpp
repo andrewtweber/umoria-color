@@ -136,6 +136,7 @@ static void displayStoreInventory(Store_t &store, int item_pos_start) {
         putStringClearToEOL(msg, Coord_t{item_line_num + 5, 0}, color);
 
         current_item_count = store.inventory[item_pos_start].cost;
+        color = Color_Yellow;
 
         if (current_item_count <= 0) {
             int32_t value = -current_item_count;
@@ -145,10 +146,11 @@ static void displayStoreInventory(Store_t &store, int item_pos_start) {
             }
             (void) sprintf(msg, "%9d", value);
         } else {
+            color = Color_Green;
             (void) sprintf(msg, "%9d [Fixed]", current_item_count);
         }
 
-        putStringClearToEOL(msg, Coord_t{item_line_num + 5, 59});
+        putStringClearToEOL(msg, Coord_t{item_line_num + 5, 59}, color);
         item_pos_start++;
     }
 
@@ -169,6 +171,7 @@ static void displayStoreInventory(Store_t &store, int item_pos_start) {
 // Re-displays only a single cost -RAK-
 static void displaySingleCost(int store_id, int item_id) {
     int cost = stores[store_id].inventory[item_id].cost;
+    int color = Color_Yellow;
 
     vtype_t msg = {'\0'};
     if (cost < 0) {
@@ -176,9 +179,10 @@ static void displaySingleCost(int store_id, int item_id) {
         c = c * playerStatAdjustmentCharisma() / 100;
         (void) sprintf(msg, "%d", c);
     } else {
+        color = Color_Green;
         (void) sprintf(msg, "%9d [Fixed]", cost);
     }
-    putStringClearToEOL(msg, Coord_t{(item_id % 12) + 5, 59});
+    putStringClearToEOL(msg, Coord_t{(item_id % 12) + 5, 59}, color);
 }
 
 // Displays players gold -RAK-

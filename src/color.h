@@ -250,7 +250,7 @@ typedef struct {
 #define Color_Inventory_Armour     Color_Iron
 #define Color_Inventory_Weapon     Color_Steel
 #define Color_Inventory_Misc       Color_Light_Grey_High
-#define Color_Inventory_Enchanted  Color_Yellow // White
+#define Color_Inventory_Enchanted  Color_Green // White
 
 #define Color_Wall                 Color_Medium_Grey_High
 #define Color_Floor                Color_Medium_Grey_High
