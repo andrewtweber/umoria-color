@@ -162,7 +162,7 @@ Creature_t creatures_list[MON_MAX_CREATURES] = {
     {"Kobold",                    0x07820002L, 0x00000000L, 0x2030,     5,  10, 20,  16, 11, 'k', {  3,  7}, {  5,   0,   0,   0},   1, Color_Brown},
     {"White Worm mass",           0x00200022L, 0x00000000L, 0x01B2,     2,  10,  7,   1, 10, 'w', {  4,  4}, {173,   0,   0,   0},   1, Color_White},
     {"Floating Eye",              0x00000001L, 0x0001000DL, 0x2100,     1,  10,  2,   6, 11, 'e', {  3,  6}, {146,   0,   0,   0},   1, Color_Light_Grey_High},
-    {"Shrieker Mushroom patch",   0x00000001L, 0x00000000L, 0x10A0,     1,   0,  2,   1, 11, ',', {  1,  1}, {203,   0,   0,   0},   2, Color_Violet}, // Purple
+    {"Shrieker Mushroom patch",   0x00000001L, 0x00000000L, 0x10A0,     1,   0,  2,   1, 11, ',', {  1,  1}, {203,   0,   0,   0},   2, Color_Violet},
     {"Blubbering Icky-Thing",     0x0B980012L, 0x00000000L, 0x0020,     8,  10, 14,   4, 11, 'i', {  5,  8}, {174, 210,   0,   0},   2, Color_Light_Grey_High},
     {"Metallic Green Centipede",  0x00000012L, 0x00000000L, 0x0002,     3,  10,  5,   4, 12, 'c', {  4,  4}, { 68,   0,   0,   0},   2, Color_Metallic_Green},
     {"Novice Warrior",            0x07020002L, 0x00000000L, 0x2030,     6,   5, 20,  16, 11, 'p', {  9,  4}, {  6,   0,   0,   0},   2, Color_Flesh},
@@ -290,7 +290,7 @@ Creature_t creatures_list[MON_MAX_CREATURES] = {
     {"Giant Grey Bat",            0x00000012L, 0x00000000L, 0x2162,    22,  15, 12,  22, 13, 'b', {  4,  8}, { 29,  50,  50,   0},  15, Color_Medium_Grey_High},
     {"Giant Clear Centipede",     0x00010002L, 0x00000000L, 0x0002,    30,  30, 12,  30, 11, 'c', {  5,  8}, { 34,  62,   0,   0},  15, Color_Clear},
     {"Giant Yellow Tick",         0x0000000AL, 0x00000000L, 0x0022,    48,  20, 12,  48, 10, 't', { 20,  8}, {162,   0,   0,   0},  15, Color_Yellow},
-    {"Giant Ebony Ant",           0x00200002L, 0x00000000L, 0x0002,     3,  60, 12,  24, 11, 'a', {  3,  4}, { 33,   0,   0,   0},  15, Color_Black},
+    {"Giant Ebony Ant",           0x00200002L, 0x00000000L, 0x0002,     3,  60, 12,  24, 11, 'a', {  3,  4}, { 33,   0,   0,   0},  15, Color_Deep_Black},
     {"Frost Giant",               0x07020002L, 0x00400000L, 0x0024,    54,  50, 20,  38, 11, 'P', { 17,  8}, {120,   0,   0,   0},  15, Color_Frost},
     {"Clay Golem",                0x00000002L, 0x00000000L, 0x1200,    50,  10, 12,  20, 11, 'g', { 14,  8}, {  7,   7,   0,   0},  15, Color_Clay},
     {"Huge White Bat",            0x00200012L, 0x00000000L, 0x2162,     3,  40,  7,  12, 12, 'b', {  3,  8}, { 29,   0,   0,   0},  15, Color_White},
@@ -369,18 +369,18 @@ Creature_t creatures_list[MON_MAX_CREATURES] = {
     // Some of the creatures have Max hit points, denoted in their CDEFENSE flags as the '4000' bit set
     {"Skeleton Troll",            0x00020002L, 0x00000000L, 0x500C,   225,  20, 20,  55, 11, 's', { 14,  8}, {  5,   5,  41,   0},  30, Color_Bone},
     {"Giant Lightning Bat",       0x00000012L, 0x00080000L, 0x2042,    80,  10, 15,  34, 12, 'b', {  8,  8}, {133,  53,  53,   0},  30, Color_Glowing},
-    {"Giant Static Ant",          0x0000000AL, 0x00080000L, 0x0002,    80,  60, 10,  40, 11, 'a', {  8,  8}, {134,   0,   0,   0},  30, Color_Glowing},
+    {"Giant Static Ant",          0x0000000AL, 0x00080000L, 0x0002,    80,  60, 10,  40, 11, 'a', {  8,  8}, {134,   0,   0,   0},  30, Color_Lightning},
     {"Grave Wight",               0x0F02000AL, 0x0000110AL, 0x512C,   325,  30, 20,  35, 11, 'W', { 12,  8}, {  6,   6, 191,   0},  30, Color_Stone},
     {"Killer Slicer Beetle",      0x0000000AL, 0x00000000L, 0x0002,   200,  30, 14,  55, 11, 'K', { 22,  8}, { 48,   0,   0,   0},  30, Color_Dark_Grey_High},
     {"Giant White Ant Lion",      0x0008000AL, 0x00400000L, 0x0022,   175,  40, 12,  45, 11, 'A', { 20,  8}, {124,   0,   0,   0},  30, Color_White},
     {"Ghost",                     0x1715000AL, 0x0001002FL, 0x510C,   350,  10, 20,  30, 12, 'G', { 13,  8}, { 99, 192, 184,   0},  31, Color_Misty},
     {"Giant Black Ant Lion",      0x0008000AL, 0x00200000L, 0x0032,   170,  40, 14,  45, 11, 'A', { 23,  8}, { 39, 119,   0,   0},  31, Color_Black},
-    {"Death Watch Beetle",        0x0000000AL, 0x00000000L, 0x0002,   190,  30, 16,  60, 11, 'K', { 25,  8}, { 47,  67,   0,   0},  31, Color_Dark_Grey_Low},
+    {"Death Watch Beetle",        0x0000000AL, 0x00000000L, 0x0002,   190,  30, 16,  60, 11, 'K', { 25,  8}, { 47,  67,   0,   0},  31, Color_Copper},
     {"Ogre Mage",                 0x0B020002L, 0x0000A355L, 0x6034,   250,  30, 20,  42, 11, 'o', { 14,  8}, { 19,   0,   0,   0},  31, Color_Dark_Blue},
     {"Two-Headed Troll",          0x0F020002L, 0x00000000L, 0x6024,   275,  50, 20,  48, 11, 'T', { 14,  8}, {  7,   7,  29,  29},  32, Color_Granite},
     {"Invisible Stalker",         0x00030022L, 0x00000000L, 0x1000,   200,  20, 20,  46, 13, 'E', { 19,  8}, {  5,   0,   0,   0},  32, Color_Clear},
     {"Giant Hunter Ant",          0x00000002L, 0x00000000L, 0x0002,   150,   1, 16,  40, 11, 'a', { 12,  8}, { 46,   0,   0,   0},  32, Color_Medium_Grey_Low},
-    {"Ninja",                     0x13020002L, 0x00000000L, 0x6034,   300,  10, 20,  65, 11, 'p', { 15,  8}, {152,  80,   0,   0},  32, Color_Black},
+    {"Ninja",                     0x13020002L, 0x00000000L, 0x6034,   300,  10, 20,  65, 11, 'p', { 15,  8}, {152,  80,   0,   0},  32, Color_Deep_Black},
     {"Barrow Wight",              0x0F02000AL, 0x00001308L, 0x512C,   375,  10, 20,  40, 11, 'W', { 13,  8}, {  7,   7, 193,   0},  33, Color_Dirt},
     {"Skeleton 2-Headed Troll",   0x00020002L, 0x00000000L, 0x500C,   325,  20, 20,  48, 11, 's', { 20,  8}, {  8,   8,  28,  28},  33, Color_Bone},
     {"Water Elemental",           0x0008000AL, 0x00000000L, 0x1020,   325,  50, 12,  36, 11, 'E', { 25,  8}, {  9,   9,   0,   0},  33, Color_Water},
@@ -410,7 +410,7 @@ Creature_t creatures_list[MON_MAX_CREATURES] = {
     {"Mature Multi-Hued Dragon",  0x6F00000AL, 0x00F81A05L, 0x6005,  1650,  50, 20,  65, 11, 'd', { 80,  8}, { 56,  56,  39,   0},  38, Color_Multi_Hued},
     {"Ancient White Dragon",      0x4F000002L, 0x00401A09L, 0x4025,  1500,  80, 20,  80, 12, 'D', { 88,  8}, { 54,  54,  37,   0},  38, Color_White},
     {"Emperor Wight",             0x1B02000AL, 0x00001306L, 0x512C,  1600,  10, 20,  40, 12, 'W', { 48,  8}, { 10,  10, 199,   0},  38, Color_Rotting},
-    {"Black Wraith",              0x1F02000AL, 0x00001307L, 0x512C,  1700,  10, 20,  55, 11, 'W', { 50,  8}, { 10,  10, 200,   0},  38, Color_Black},
+    {"Black Wraith",              0x1F02000AL, 0x00001307L, 0x512C,  1700,  10, 20,  55, 11, 'W', { 50,  8}, { 10,  10, 200,   0},  38, Color_Deep_Black},
     {"Nether Wraith",             0x1F07000AL, 0x00005316L, 0x512C,  2100,  10, 20,  55, 11, 'W', { 58,  8}, { 10,  10, 202,   0},  39, Color_Smoky},
     {"Sorcerer",                  0x1F020002L, 0x0000FF73L, 0x6030,  2150,  10, 20,  50, 12, 'p', { 30,  8}, { 16,   0,   0,   0},  39, Color_Dark_Purple},
     {"Ancient Blue Dragon",       0x4F000002L, 0x00081A08L, 0x6005,  2500,  80, 20,  90, 12, 'D', { 87,  8}, { 55,  55,  39,   0},  39, Color_Dark_Blue},
@@ -430,7 +430,7 @@ Creature_t creatures_list[MON_MAX_CREATURES] = {
     {"Evil Iggy",                 0x7F130002L, 0x0001D713L, 0x5004, 18000,   0, 30,  80, 12, 'p', { 60, 40}, { 81, 150,   0,   0},  50, Color_Flesh},
 
     // Here is the only actual win creature.
-    {"Balrog",                    0xFF1F0002L, 0x0081C743L, 0x5004, 55000L,  0, 40, 125, 13, 'B', { 75, 40}, {104,  78, 214,   0}, 100, Color_Fire}, // Red
+    {"Balrog",                    0xFF1F0002L, 0x0081C743L, 0x5004, 55000L,  0, 40, 125, 13, 'B', { 75, 40}, {104,  78, 214,   0}, 100, Color_Shadow_And_Flame},
 };
 
 // ERROR: attack #35 is no longer used

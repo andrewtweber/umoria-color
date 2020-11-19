@@ -485,7 +485,7 @@ static void redrawEffects(Coord_t const &coord) {
             ) {
                 int color = caveGetTileColor(location);
 
-                if (color == Color_Fire || color == Color_Random ||
+                if (color == Color_Fire || color == Color_Shadow_And_Flame || color == Color_Random ||
                     (tile.creature_id > 1 && (color == Color_Glowing || color == Color_Lightning))
                 ) {
                     panelPutTile(caveGetTileSymbol(location), caveGetTileColor(location), location);
