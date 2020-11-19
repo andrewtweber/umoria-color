@@ -28,7 +28,7 @@ Color_t colors[255] = {
 {0, 224, 224,   0}, /* Color_Yellow           */
 {0,   0,   0, 255}, /* Color_Blue             */
 {0, 255, 160,   0}, /* Color_Orange           */
-{0, 224,   0, 240}, /* Color_Purple           */
+{0, 128,   0, 176}, /* Color_Purple           */
 {0, 144,   0,   0}, /* Color_Dark_Red         */
 {0,   0, 128,   0}, /* Color_Dark_Green       */
 {0, 144, 128,   0}, /* Color_Dark_Yellow      */
@@ -50,7 +50,7 @@ Color_t colors[255] = {
 {0, 240, 240, 240}, /* Color_Aluminum         */
 {0, 160, 160, 176}, /* Color_Cast_Iron        */
 {0, 240, 240, 240}, /* Color_Chromium         */
-{0, 255, 224, 128}, /* Color_Copper           */
+{0, 151,  92,  80}, /* Color_Copper           */
 {0, 240, 224,  96}, /* Color_Gold             */
 {0, 176, 176, 192}, /* Color_Iron             */
 {0, 240, 240, 240}, /* Color_Magnesium        */
@@ -65,7 +65,7 @@ Color_t colors[255] = {
 {0,  96,  96,  96}, /* Color_Zirconium        */
 {0, 208, 224, 255}, /* Color_Zinc             */
 {0, 160, 112,  96}, /* Color_Dirt             */
-{0, 144, 144,  64}, /* Color_Leperous         */
+{0, 144, 144,  64}, /* Color_Leprous          */
 {0, 240, 224, 208}, /* Color_Flesh            */
 {0, 224, 255, 176}, /* Color_Disenchanting    */
 {0, 176, 128,  96}, /* Color_Rotting          */
@@ -109,7 +109,7 @@ Color_t colors[255] = {
 {0, 176,  96, 128}, /* Color_Puce             */
 {0, 112,  96,  96}, /* Color_Smoky            */
 {0, 208,  96,   0}, /* Color_Tangerine        */
-{0, 128,   0, 176}, /* Color_Violet           */
+{0, 224,   0, 240}, /* Color_Violet           */
 {0, 255, 112,   0}, /* Color_Vermilion        */
 {0, 112, 208,   0}, /* Color_Alexandrite      */
 {0, 176,   0, 255}, /* Color_Amethyst         */
@@ -120,7 +120,7 @@ Color_t colors[255] = {
 {0, 224, 224, 224}, /* Color_Calcite          */
 {0, 176,  48,   0}, /* Color_Carnelian        */
 {0,  48, 112, 255}, /* Color_Corundum         */
-{0, 255, 255, 255}, /* Color_Diamond          */
+{0, 132, 221, 233}, /* Color_Diamond          */
 {0,  64, 208,  64}, /* Color_Emerald          */
 {0, 240, 255, 224}, /* Color_Fluorite         */
 {0, 224,   0,   0}, /* Color_Garnet           */
@@ -134,11 +134,11 @@ Color_t colors[255] = {
 {0, 240, 240, 240}, /* Color_Moonstone        */
 {0, 224, 208, 208}, /* Color_Onyx             */
 {0, 240, 240, 240}, /* Color_Pearl            */
-{0, 224, 224, 224}, /* Color_Quartz           */
+{0, 230, 197, 192}, /* Color_Quartz           */
 {0, 208, 208, 208}, /* Color_Quartzite        */
 {0, 224,   0,  64}, /* Color_Rhodonite        */
 {0, 240,  64,  64}, /* Color_Ruby             */
-{0,  96,  64, 208}, /* Color_Sapphire         */
+{0,  53,   0, 255}, /* Color_Sapphire         */
 {0, 224, 128,  64}, /* Color_Tiger_Eye        */
 {0, 224, 208,  32}, /* Color_Topaz            */
 {0,   0, 192, 192}, /* Color_Turquoise        */

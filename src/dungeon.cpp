@@ -246,7 +246,9 @@ int caveGetTileColor(Coord_t const &coord) {
             case TV_POTION2:
                 return potion_colors[game.treasure.list[tile.treasure_id].sub_category_id & (ITEM_SINGLE_STACK_MIN - 1)];
             case TV_FOOD:
-                return mushroom_colors[game.treasure.list[tile.treasure_id].sub_category_id & (ITEM_SINGLE_STACK_MIN - 1)];
+                if ((game.treasure.list[tile.treasure_id].sub_category_id & (ITEM_SINGLE_STACK_MIN - 1)) < MAX_MUSHROOMS) {
+                    return mushroom_colors[game.treasure.list[tile.treasure_id].sub_category_id & (ITEM_SINGLE_STACK_MIN - 1)];
+                }
             default:
                 return game_objects[game.treasure.list[tile.treasure_id].id].color;
         }
