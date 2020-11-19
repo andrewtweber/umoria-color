@@ -467,6 +467,35 @@ void dungeonLiteSpot(Coord_t const &coord) {
     panelPutTile(symbol, caveGetTileColor(coord), coord);
 }
 
+// Redraw any visible creatures with effects
+static void redrawEffectCreatures(Coord_t const &coord) {
+    int height_middle = (SCREEN_HEIGHT / 2);
+    int width_middle = (SCREEN_WIDTH / 2);
+
+    int top = (coord.y / height_middle) * height_middle;
+    int left = (coord.x / width_middle) * width_middle;
+    int bottom = top + height_middle - 1;
+    int right = left + width_middle - 1;
+
+    Coord_t location = Coord_t{0, 0};
+
+    for (location.y = top; location.y <= bottom; location.y++) {
+        for (location.x = left; location.x <= right; location.x++) {
+            if (caveTileVisible(location)) {
+                Tile_t &tile = dg.floor[location.y][location.x];
+
+                if ((tile.creature_id  > 1 && monsters[tile.creature_id].lit) || tile.treasure_id) {
+                    int color = caveGetTileColor(location);
+
+                    if (color == Color_Fire || color == Color_Random) {
+                        panelPutTile(caveGetTileSymbol(location), caveGetTileColor(location), location);
+                    }
+                }
+            }
+        }
+    }
+}
+
 // Normal movement
 // When FIND_FLAG,  light only permanent features
 static void sub1MoveLight(Coord_t const &from, Coord_t const &to) {
@@ -530,6 +559,8 @@ static void sub1MoveLight(Coord_t const &from, Coord_t const &to) {
             panelPutTile(caveGetTileSymbol(coord), caveGetTileColor(coord), coord);
         }
     }
+
+    redrawEffectCreatures(to);
 }
 
 // When blinded,  move only the player symbol.
