@@ -150,12 +150,26 @@ void addChar(char ch, Coord_t coord) {
     }
 }
 
+int randint(int max) {
+    int min = 1;
+    return min + (rand() % static_cast<int>(max - min + 1));
+}
+
 void setColor(int color) {
+    /* Edouard's (self-confessed) hacky random-color calculation ... */
+    if (color == Color_Random) {
+        color = (randint(5) == 1) ? (randint(6) - 1) : (randint(8) + 7);
+    }
+
     attron(COLOR_PAIR(color + 1));
 }
 
 void clearColor(int color) {
-    attroff(COLOR_PAIR(color + 1));
+    if (color == Color_Random) {
+        attron(Color_Default);
+    } else {
+        attroff(COLOR_PAIR(color + 1));
+    }
 }
 
 // Dump IO to buffer -RAK-
