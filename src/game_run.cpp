@@ -26,8 +26,8 @@ static void dungeonJamDoor();
 static void inventoryRefillLamp();
 
 void startMoria(int seed, bool start_new_game) {
-    // Roguelike keys are disabled by default.
-    // This will be overridden by the setting in the game save file.
+    // Disable roguelike keys by default - this will be overridden by the
+    // setting in the game save file.
     config::options::use_roguelike_keys = false;
 
     priceAdjust();
@@ -1660,6 +1660,9 @@ static void doCommand(char command) {
             terminalSaveScreen();
             setGameOptions();
             terminalRestoreScreen();
+
+            // Redraw panel because mineral seams / colors may have been changed
+            drawCavePanel();
             game.player_free_turn = true;
             break;
         case '{': // ({) inscribe an object

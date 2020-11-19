@@ -127,6 +127,9 @@ static bool svWrite() {
     if (config::options::display_counts) {
         l |= 0x400;
     }
+    if (config::options::use_colors) {
+        l |= 0x800;
+    }
     if (game.character_is_dead) {
         // Sign bit
         l |= 0x80000000L;
@@ -556,6 +559,7 @@ bool loadGame(bool &generate) {
         config::options::run_ignore_doors = (l & 0x100) != 0;
         config::options::error_beep_sound = (l & 0x200) != 0;
         config::options::display_counts = (l & 0x400) != 0;
+        config::options::use_colors = (l & 0x800) != 0;
 
         // Don't allow resurrection of game.total_winner characters.  It causes
         // problems because the character level is out of the allowed range.

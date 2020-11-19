@@ -808,6 +808,7 @@ static void spellFireBoltTouchesMonster(Tile_t &tile, int damage, int harm_type,
     }
 }
 
+// Get spell color - EMP -
 int spellGetColor(int spell_type) {
     switch (spell_type) {
         case MagicMissile:

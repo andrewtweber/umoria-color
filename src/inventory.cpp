@@ -523,7 +523,7 @@ int itemColor(Inventory_t *item, bool know_all) {
 
 // Functions to emulate the original Pascal sets
 bool setNull(Inventory_t *item) {
-    (void) item; // silence warnings    
+    (void) item; // silence warnings
     return false;
 }
 

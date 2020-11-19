@@ -35,6 +35,7 @@ namespace config {
         extern bool use_roguelike_keys;
         extern bool show_inventory_weights;
         extern bool error_beep_sound;
+        extern bool use_colors;
     }
 
     namespace dungeon {

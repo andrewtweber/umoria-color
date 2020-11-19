@@ -38,12 +38,17 @@ static void moriaTerminalInitialize() {
 // initializes the terminal / curses routines
 bool terminalInitialize() {
     initscr();
-    start_color();
 
-    for (int i = 0; i < MAX_COLORS; i++) {
-        Color_t color_obj = colors[i];
-        init_color(i + 9, (int) ((color_obj.R * 1000) / 255), (int) ((color_obj.G * 1000) / 255), (int) ((color_obj.B * 1000) / 255));
-        init_pair(i + 1, i + 9, COLOR_BLACK);
+    if (has_colors() == false) {
+        config::options::use_colors = false;
+    } else {
+        start_color();
+
+        for (int i = 0; i < MAX_COLORS; i++) {
+            Color_t color_obj = colors[i];
+            init_color(i + 9, (int) ((color_obj.R * 1000) / 255), (int) ((color_obj.G * 1000) / 255), (int) ((color_obj.B * 1000) / 255));
+            init_pair(i + 1, i + 9, COLOR_BLACK);
+        }
     }
 
     // Check we have enough screen. -CJS-
@@ -150,14 +155,19 @@ void addChar(char ch, Coord_t coord) {
     }
 }
 
+// Quick helper -ATW-
 int randint(int max) {
     int min = 1;
     return min + (rand() % static_cast<int>(max - min + 1));
 }
 
-// For random/fire effect, returns the color that was actually used so that we can clear it
+// Set color. For special effects, returns the color that was actually used so that we can clear it -ATW-
 int setColor(int color) {
-    /* Edouard's (self-confessed) hacky random-color calculation ... */
+    if (color == -1 || ! config::options::use_colors) {
+        return -1;
+    }
+
+    // Edouard's (self-confessed) hacky random-color calculation ... -EMP-
     if (color == Color_Random) {
         color = (randint(5) == 1) ? (randint(6) - 1) : (randint(8) + 7);
     } else if (color == Color_Fire) {
@@ -177,7 +187,12 @@ int setColor(int color) {
     return color;
 }
 
+// Clear color -ATW-
 void clearColor(int color) {
+    if (color == -1) {
+        return;
+    }
+
     attroff(COLOR_PAIR(color + 1));
 }
 
@@ -192,15 +207,11 @@ void putString(const char *out_str, Coord_t coord, int color) {
     (void) strncpy(str, out_str, (size_t)(79 - coord.x));
     str[79 - coord.x] = '\0';
 
-    if (color != -1) {
-        color = setColor(color);
-    }
+    color = setColor(color);
     if (mvaddstr(coord.y, coord.x, str) == ERR) {
         abort();
     }
-    if (color != -1) {
-        clearColor(color);
-    }
+    clearColor(color);
 }
 
 // Outputs a line to a given y, x position -RAK-

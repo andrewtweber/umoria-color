@@ -7,7 +7,6 @@ Tracking all changes since the 5.6.0 release.
 
 * Fix out-of-bounds compile error in `/src/game_save.cpp` (Line 810).
 
-
 ## 5.7.15 (2021-06-02)
 
 Fix incorrect license.
@@ -34,6 +33,20 @@ The license has been corrected to GPL-3.0-or-later.
 
 - Calculate throw distance/position correctly. Introduced with commit [#fc1d6d](https://github.com/dungeons-of-moria/umoria/commit/ca135fda382bf206a010f9f9550cf4fa299bd2a9).
 - Correctly stack inventory items (arrows/bolts). Introduced with commit [#195c9a6](https://github.com/dungeons-of-moria/umoria/commit/195c9a68d3ff7da47296888c635c87c37f435413). 
+
+
+## 5.8.1 (2020-11-19)
+
+- Bugfix displaying current experience color
+- Option to enable/disable colors, with fallback for terminals without colors
+
+
+## 5.8.0 (2020-11-18)
+
+- Colors! Adapted from Colour-Umoria by Edouard Poor. Many colors and color assignments were adjusted
+- Disable roguelike keys by default
+- Walking into a door will attempt to open it automatically without having to press the `'o'` key
+- Fire, lightning, and glowing effects were added
 
 
 ## 5.7.13 (2020-08-22)
