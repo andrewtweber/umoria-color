@@ -41,6 +41,7 @@ typedef struct {
     Dice_t hit_die;             // Creatures hit die
     uint8_t damage[4];          // Type attack and damage
     uint8_t level;              // Level of creature
+    int color;                  // Color
 } Creature_t;
 
 // MonsterAttack_t is a base data object.
@@ -70,6 +71,7 @@ extern Monster_t blank_monster;
 extern int16_t next_free_monster_id;
 extern int16_t monster_multiply_total;
 
+bool monsterIsVisible(Monster_t const &monster);
 void monsterUpdateVisibility(int monster_id);
 bool monsterMultiply(Coord_t coord, int creature_id, int monster_id);
 void updateMonsters(bool attack);

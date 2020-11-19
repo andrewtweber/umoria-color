@@ -266,7 +266,11 @@ bool spellDetectInvisibleCreaturesWithinVicinity() {
             monster.lit = true;
 
             // works correctly even if hallucinating
-            panelPutTile((char) creatures_list[monster.creature_id].sprite, Coord_t{monster.pos.y, monster.pos.x});
+            panelPutTile(
+                (char) creatures_list[monster.creature_id].sprite,
+                creatures_list[monster.creature_id].color,
+                Coord_t{monster.pos.y, monster.pos.x}
+            );
 
             detected = true;
         }
@@ -566,7 +570,11 @@ bool spellDetectMonsters() {
             detected = true;
 
             // works correctly even if hallucinating
-            panelPutTile((char) creatures_list[monster.creature_id].sprite, Coord_t{monster.pos.y, monster.pos.x});
+            panelPutTile(
+                (char) creatures_list[monster.creature_id].sprite,
+                creatures_list[monster.creature_id].color,
+                Coord_t{monster.pos.y, monster.pos.x}
+            );
         }
     }
 
@@ -803,6 +811,27 @@ static void spellFireBoltTouchesMonster(Tile_t &tile, int damage, int harm_type,
     }
 }
 
+int spellGetColor(int spell_type) {
+    switch (spell_type) {
+        case MagicMissile:
+            return Color_Magic_Missile;
+        case Lightning:
+            return Color_Glowing;
+        case PoisonGas:
+            return Color_Poison_Gas;
+        case Acid:
+            return Color_Acid;
+        case Frost:
+            return Color_Frost;
+        case Fire:
+            return Color_Fire;
+        case HolyOrb:
+            return Color_Holy_Orb;
+        default:
+            return Color_White;
+    }
+}
+
 // Shoot a bolt in a given direction -RAK-
 void spellFireBolt(Coord_t coord, int direction, int damage_hp, int spell_type, const std::string &spell_name) {
     bool (*dummy)(Inventory_t *);
@@ -835,7 +864,7 @@ void spellFireBolt(Coord_t coord, int direction, int damage_hp, int spell_type, 
             finished = true;
             spellFireBoltTouchesMonster(tile, damage_hp, harm_type, weapon_type, spell_name);
         } else if (coordInsidePanel(coord) && py.flags.blind < 1) {
-            panelPutTile('*', coord);
+            panelPutTile('*', spellGetColor(spell_type), coord);
 
             // show the bolt
             putQIO();
@@ -931,7 +960,7 @@ void spellFireBall(Coord_t coord, int direction, int damage_hp, int spell_type, 
                                 }
                                 tile->permanent_light = saved_lit_status;
                             } else if (coordInsidePanel(spot) && py.flags.blind < 1) {
-                                panelPutTile('*', spot);
+                                panelPutTile('*', spellGetColor(spell_type), spot);
                             }
                         }
                     }
@@ -970,7 +999,7 @@ void spellFireBall(Coord_t coord, int direction, int damage_hp, int spell_type, 
             }
             // End ball hitting.
         } else if (coordInsidePanel(coord) && py.flags.blind < 1) {
-            panelPutTile('*', coord);
+            panelPutTile('*', spellGetColor(spell_type), coord);
 
             // show bolt
             putQIO();
@@ -1004,7 +1033,7 @@ void spellBreath(Coord_t coord, int monster_id, int damage_hp, int spell_type, c
                     // been set by a previous monster, but the breath should still
                     // be visible until the blindness takes effect
                     if (coordInsidePanel(location) && ((py.flags.status & config::player::status::PY_BLIND) == 0u)) {
-                        panelPutTile('*', location);
+                        panelPutTile('*', spellGetColor(spell_type), location);
                     }
 
                     if (tile.creature_id > 1) {
@@ -1887,7 +1916,11 @@ bool spellDetectEvil() {
             detected = true;
 
             // works correctly even if hallucinating
-            panelPutTile((char) creatures_list[monster.creature_id].sprite, Coord_t{monster.pos.y, monster.pos.x});
+            panelPutTile(
+                (char) creatures_list[monster.creature_id].sprite,
+                creatures_list[monster.creature_id].color,
+                Coord_t{monster.pos.y, monster.pos.x}
+            );
         }
     }
 

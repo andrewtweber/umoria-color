@@ -14,6 +14,8 @@
 
 static bool curses_on = false;
 
+extern Color_t colors[255];
+
 // Spare window for saving the screen. -CJS-
 static WINDOW *save_screen;
 
@@ -39,6 +41,13 @@ static void moriaTerminalInitialize() {
 // initializes the terminal / curses routines
 bool terminalInitialize() {
     initscr();
+    start_color();
+
+    for (int i = 0; i < MAX_COLORS; i++) {
+        Color_t color_obj = colors[i];
+        init_color(i + 9, (int) ((color_obj.R * 1000) / 255), (int) ((color_obj.G * 1000) / 255), (int) ((color_obj.B * 1000) / 255));
+        init_pair(i + 1, i + 9, COLOR_BLACK);
+    }
 
     // Check we have enough screen. -CJS-
     if (LINES < 24 || COLS < 80) {
@@ -144,8 +153,39 @@ void addChar(char ch, Coord_t coord) {
     }
 }
 
+int randint(int max) {
+    int min = 1;
+    return min + (rand() % static_cast<int>(max - min + 1));
+}
+
+// For random/fire effect, returns the color that was actually used so that we can clear it
+int setColor(int color) {
+    /* Edouard's (self-confessed) hacky random-color calculation ... */
+    if (color == Color_Random) {
+        color = (randint(5) == 1) ? (randint(6) - 1) : (randint(8) + 7);
+    } else if (color == Color_Fire) {
+        int fire_colors[5] = {Color_Vermilion, Color_Orange, Color_Red, Color_Light_Red, Color_Fire};
+        color = fire_colors[randint(5) - 1];
+    } else if (color == Color_Shadow_And_Flame) {
+        int fire_colors[7] = {Color_Vermilion, Color_Orange, Color_Red, Color_Light_Red, Color_Fire, Color_Deep_Black, Color_Deep_Black};
+        color = fire_colors[randint(7) - 1];
+    } else if (color == Color_Glowing) {
+        color = (randint(2) == 1) ? Color_Glowing : Color_White;
+    } else if (color == Color_Lightning) {
+        int cloud_colors[6] = {Color_Lightning, Color_Deep_Black, Color_Deep_Black, Color_Deep_Black, Color_Cloudy, Color_Cloudy};
+        color = cloud_colors[randint(6) - 1];
+    }
+
+    attron(COLOR_PAIR(color + 1));
+    return color;
+}
+
+void clearColor(int color) {
+    attroff(COLOR_PAIR(color + 1));
+}
+
 // Dump IO to buffer -RAK-
-void putString(const char *out_str, Coord_t coord) {
+void putString(const char *out_str, Coord_t coord, int color) {
     // truncate the string, to make sure that it won't go past right edge of screen.
     if (coord.x > 79) {
         coord.x = 79;
@@ -155,20 +195,26 @@ void putString(const char *out_str, Coord_t coord) {
     (void) strncpy(str, out_str, (size_t)(79 - coord.x));
     str[79 - coord.x] = '\0';
 
+    if (color != -1) {
+        color = setColor(color);
+    }
     if (mvaddstr(coord.y, coord.x, str) == ERR) {
         abort();
+    }
+    if (color != -1) {
+        clearColor(color);
     }
 }
 
 // Outputs a line to a given y, x position -RAK-
-void putStringClearToEOL(const std::string &str, Coord_t coord) {
+void putStringClearToEOL(const std::string &str, Coord_t coord, int color) {
     if (coord.y == MSG_LINE && message_ready_to_print) {
         printMessage(CNIL);
     }
 
     (void) move(coord.y, coord.x);
     clrtoeol();
-    putString(str.c_str(), coord);
+    putString(str.c_str(), coord, color);
 }
 
 // Clears given line of text -RAK-
@@ -194,14 +240,16 @@ void panelMoveCursor(Coord_t coord) {
 
 // Outputs a char to a given interpolated y, x position -RAK-
 // sign bit of a character used to indicate standout mode. -CJS
-void panelPutTile(char ch, Coord_t coord) {
+void panelPutTile(char ch, int color, Coord_t coord) {
     // Real coords convert to screen positions
     coord.y -= dg.panel.row_prt;
     coord.x -= dg.panel.col_prt;
 
+    color = setColor(color);
     if (mvaddch(coord.y, coord.x, ch) == ERR) {
         abort();
     }
+    clearColor(color);
 }
 
 static Coord_t currentCursorPosition() {
@@ -435,7 +483,9 @@ bool getStringInput(char *in_str, Coord_t coord, int slen) {
                 if ((isprint(key) == 0) || coord.x > end_col) {
                     terminalBellSound();
                 } else {
+                    setColor(Color_Title);
                     mvaddch(coord.y, coord.x, (char) key);
+                    clearColor(Color_Title);
                     *p++ = (char) key;
                     coord.x++;
                 }

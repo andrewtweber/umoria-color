@@ -96,7 +96,7 @@ void drawDungeonPanel() {
         for (coord.x = dg.panel.left; coord.x <= dg.panel.right; coord.x++) {
             char ch = caveGetTileSymbol(coord);
             if (ch != ' ') {
-                panelPutTile(ch, coord);
+                panelPutTile(ch, caveGetTileColor(coord), coord);
             }
         }
     }
@@ -159,87 +159,142 @@ void statsAsString(uint8_t stat, char *stat_string) {
 void displayCharacterStats(int stat) {
     char text[7];
     statsAsString(py.stats.used[stat], text);
+    int color = Color_OK;
+    if (py.stats.current[stat] <= py.stats.max[stat] / 5) {
+        color = Color_Warning;
+    } else if (py.stats.current[stat] < py.stats.max[stat]) {
+        color = Color_Attention;
+    }
+
     putString(stat_names[stat], Coord_t{6 + stat, STAT_COLUMN});
-    putString(text, Coord_t{6 + stat, STAT_COLUMN + 6});
+    putString(text, Coord_t{6 + stat, STAT_COLUMN + 6}, color);
 }
 
 // Print character info in given row, column -RAK-
 // The longest title is 13 characters, so only pad to 13
-static void printCharacterInfoInField(const char *info, Coord_t coord) {
+static void printCharacterInfoInField(const char *info, Coord_t coord, int color = -1) {
     // blank out the current field space
     putString(&blank_string[BLANK_LENGTH - 13], coord);
 
-    putString(info, coord);
+    putString(info, coord, color);
 }
 
 // Print long number with header at given row, column
-static void printHeaderLongNumber(const char *header, int32_t num, Coord_t coord) {
+static void printHeaderLongNumber(const char *header, int32_t num, Coord_t coord, int color = -1) {
     vtype_t str = {'\0'};
-    (void) sprintf(str, "%s: %6d", header, num);
+    (void) sprintf(str, "%s: ", header);
     putString(str, coord);
+
+    int size = 0;
+    while (header[size] != '\0') size++;
+    Coord_t num_coord{ coord.y, coord.x + size + 2 };
+    vtype_t num_str = {'\0'};
+    (void) sprintf(num_str, "%6d", num);
+    putString(num_str, num_coord, color);
 }
 
 // Print long number (7 digits of space) with header at given row, column
-static void printHeaderLongNumber7Spaces(const char *header, int32_t num, Coord_t coord) {
+static void printHeaderLongNumber7Spaces(const char *header, int32_t num, Coord_t coord, int color = -1) {
     vtype_t str = {'\0'};
-    (void) sprintf(str, "%s: %7d", header, num);
+    (void) sprintf(str, "%s: ", header);
     putString(str, coord);
+
+    int size = 0;
+    while (header[size] != '\0') size++;
+    Coord_t num_coord{ coord.y, coord.x + size + 2 };
+    vtype_t num_str = {'\0'};
+    (void) sprintf(num_str, "%7d", num);
+    putString(num_str, num_coord, color);
 }
 
 // Print number with header at given row, column -RAK-
-static void printHeaderNumber(const char *header, int num, Coord_t coord) {
+static void printHeaderNumber(const char *header, int num, Coord_t coord, int color = -1) {
     vtype_t str = {'\0'};
-    (void) sprintf(str, "%s: %6d", header, num);
+    (void) sprintf(str, "%s: ", header);
     putString(str, coord);
+
+    int size = 0;
+    while (header[size] != '\0') size++;
+    Coord_t num_coord{ coord.y, coord.x + size + 2 };
+    vtype_t num_str = {'\0'};
+    (void) sprintf(num_str, "%6d", num);
+    putString(num_str, num_coord, color);
 }
 
 // Print long number at given row, column
-static void printLongNumber(int32_t num, Coord_t coord) {
+static void printLongNumber(int32_t num, Coord_t coord, int color = -1) {
     vtype_t str = {'\0'};
     (void) sprintf(str, "%6d", num);
-    putString(str, coord);
+    putString(str, coord, color);
 }
 
 // Print number at given row, column -RAK-
-static void printNumber(int num, Coord_t coord) {
+static void printNumber(int num, Coord_t coord, int color = -1) {
     vtype_t str = {'\0'};
     (void) sprintf(str, "%6d", num);
-    putString(str, coord);
+    putString(str, coord, color);
 }
 
 // Prints title of character -RAK-
 void printCharacterTitle() {
-    printCharacterInfoInField(playerRankTitle(), Coord_t{4, STAT_COLUMN});
+    printCharacterInfoInField(playerRankTitle(), Coord_t{4, STAT_COLUMN}, Color_Title);
 }
 
 // Prints level -RAK-
 void printCharacterLevel() {
-    printNumber((int) py.misc.level, Coord_t{13, STAT_COLUMN + 6});
+    printNumber((int) py.misc.level, Coord_t{13, STAT_COLUMN + 6}, Color_OK);
+}
+
+int currentManaColor() {
+    if (py.misc.mana && py.misc.current_mana <= py.misc.mana / 5) {
+        return Color_Warning;
+    } else if (py.misc.current_mana < py.misc.mana) {
+        return Color_Attention;
+    }
+    return Color_OK;
 }
 
 // Prints players current mana points. -RAK-
 void printCharacterCurrentMana() {
-    printNumber(py.misc.current_mana, Coord_t{15, STAT_COLUMN + 6});
+    printNumber(py.misc.current_mana, Coord_t{15, STAT_COLUMN + 6}, currentManaColor());
 }
 
 // Prints Max hit points -RAK-
 void printCharacterMaxHitPoints() {
-    printNumber(py.misc.max_hp, Coord_t{16, STAT_COLUMN + 6});
+    printNumber(py.misc.max_hp, Coord_t{16, STAT_COLUMN + 6}, Color_OK);
+}
+
+int currentHitPointsColor() {
+    if (py.misc.current_hp <= py.misc.max_hp / 5) {
+        return Color_Warning;
+    } else if (py.misc.current_hp < py.misc.max_hp) {
+        return Color_Attention;
+    }
+    return Color_OK;
 }
 
 // Prints players current hit points -RAK-
 void printCharacterCurrentHitPoints() {
-    printNumber(py.misc.current_hp, Coord_t{17, STAT_COLUMN + 6});
+    printNumber(py.misc.current_hp, Coord_t{17, STAT_COLUMN + 6}, currentHitPointsColor());
+}
+
+int currentExperienceColor() {
+    if (py.misc.exp <= py.misc.max_exp / 5) {
+        return Color_Warning;
+    } else if (py.misc.exp < py.misc.max_exp) {
+        return Color_Attention;
+    }
+    return Color_OK;
 }
 
 // prints current AC -RAK-
 void printCharacterCurrentArmorClass() {
-    printNumber(py.misc.display_ac, Coord_t{19, STAT_COLUMN + 6});
+    printNumber(py.misc.display_ac, Coord_t{19, STAT_COLUMN + 6}, Color_OK);
 }
 
 // Prints current gold -RAK-
 void printCharacterGoldValue() {
-    printLongNumber(py.misc.au, Coord_t{20, STAT_COLUMN + 6});
+    printLongNumber(py.misc.au, Coord_t{20, STAT_COLUMN + 6}, Color_OK);
 }
 
 // Prints depth in stat area -RAK-
@@ -254,15 +309,15 @@ void printCharacterCurrentDepth() {
         (void) sprintf(depths, "%d feet", depth);
     }
 
-    putStringClearToEOL(depths, Coord_t{23, 65});
+    putStringClearToEOL(depths, Coord_t{23, 65}, Color_Title);
 }
 
 // Prints status of hunger -RAK-
 void printCharacterHungerStatus() {
     if ((py.flags.status & config::player::status::PY_WEAK) != 0u) {
-        putString("Weak  ", Coord_t{23, 0});
+        putString("Weak  ", Coord_t{23, 0}, Color_Warning);
     } else if ((py.flags.status & config::player::status::PY_HUNGRY) != 0u) {
-        putString("Hungry", Coord_t{23, 0});
+        putString("Hungry", Coord_t{23, 0}, Color_Attention);
     } else {
         putString(&blank_string[BLANK_LENGTH - 6], Coord_t{23, 0});
     }
@@ -271,7 +326,7 @@ void printCharacterHungerStatus() {
 // Prints Blind status -RAK-
 void printCharacterBlindStatus() {
     if ((py.flags.status & config::player::status::PY_BLIND) != 0u) {
-        putString("Blind", Coord_t{23, 7});
+        putString("Blind", Coord_t{23, 7}, Color_Warning);
     } else {
         putString(&blank_string[BLANK_LENGTH - 5], Coord_t{23, 7});
     }
@@ -280,7 +335,7 @@ void printCharacterBlindStatus() {
 // Prints Confusion status -RAK-
 void printCharacterConfusedState() {
     if ((py.flags.status & config::player::status::PY_CONFUSED) != 0u) {
-        putString("Confused", Coord_t{23, 13});
+        putString("Confused", Coord_t{23, 13}, Color_Attention);
     } else {
         putString(&blank_string[BLANK_LENGTH - 8], Coord_t{23, 13});
     }
@@ -289,7 +344,7 @@ void printCharacterConfusedState() {
 // Prints Fear status -RAK-
 void printCharacterFearState() {
     if ((py.flags.status & config::player::status::PY_FEAR) != 0u) {
-        putString("Afraid", Coord_t{23, 22});
+        putString("Afraid", Coord_t{23, 22}, Color_Yellow);
     } else {
         putString(&blank_string[BLANK_LENGTH - 6], Coord_t{23, 22});
     }
@@ -298,7 +353,7 @@ void printCharacterFearState() {
 // Prints Poisoned status -RAK-
 void printCharacterPoisonedState() {
     if ((py.flags.status & config::player::status::PY_POISONED) != 0u) {
-        putString("Poisoned", Coord_t{23, 29});
+        putString("Poisoned", Coord_t{23, 29}, Color_Poison_Gas);
     } else {
         putString(&blank_string[BLANK_LENGTH - 8], Coord_t{23, 29});
     }
@@ -309,7 +364,7 @@ void printCharacterMovementState() {
     py.flags.status &= ~config::player::status::PY_REPEAT;
 
     if (py.flags.paralysis > 1) {
-        putString("Paralysed", Coord_t{23, 38});
+        putString("Paralysed", Coord_t{23, 38}, Color_Warning);
         return;
     }
 
@@ -368,9 +423,9 @@ void printCharacterSpeed() {
     }
 
     if (speed > 1) {
-        putString("Very Slow", Coord_t{23, 49});
+        putString("Very Slow", Coord_t{23, 49}, Color_Warning);
     } else if (speed == 1) {
-        putString("Slow     ", Coord_t{23, 49});
+        putString("Slow     ", Coord_t{23, 49}, Color_Attention);
     } else if (speed == 0) {
         putString(&blank_string[BLANK_LENGTH - 9], Coord_t{23, 49});
     } else if (speed == -1) {
@@ -386,7 +441,7 @@ void printCharacterStudyInstruction() {
     if (py.flags.new_spells_to_learn == 0) {
         putString(&blank_string[BLANK_LENGTH - 5], Coord_t{23, 59});
     } else {
-        putString("Study", Coord_t{23, 59});
+        putString("Study", Coord_t{23, 59}, Color_Light_Blue);
     }
 }
 
@@ -417,13 +472,13 @@ void printCharacterStatsBlock() {
         displayCharacterStats(i);
     }
 
-    printHeaderNumber("LEV ", (int) py.misc.level, Coord_t{13, STAT_COLUMN});
-    printHeaderLongNumber("EXP ", py.misc.exp, Coord_t{14, STAT_COLUMN});
-    printHeaderNumber("MANA", py.misc.current_mana, Coord_t{15, STAT_COLUMN});
-    printHeaderNumber("MHP ", py.misc.max_hp, Coord_t{16, STAT_COLUMN});
-    printHeaderNumber("CHP ", py.misc.current_hp, Coord_t{17, STAT_COLUMN});
-    printHeaderNumber("AC  ", py.misc.display_ac, Coord_t{19, STAT_COLUMN});
-    printHeaderLongNumber("GOLD", py.misc.au, Coord_t{20, STAT_COLUMN});
+    printHeaderNumber("LEV ", (int) py.misc.level, Coord_t{13, STAT_COLUMN}, Color_Title);
+    printHeaderLongNumber("EXP ", py.misc.exp, Coord_t{14, STAT_COLUMN}, currentExperienceColor());
+    printHeaderNumber("MANA", py.misc.current_mana, Coord_t{15, STAT_COLUMN}, currentManaColor());
+    printHeaderNumber("MHP ", py.misc.max_hp, Coord_t{16, STAT_COLUMN}, Color_Title);
+    printHeaderNumber("CHP ", py.misc.current_hp, Coord_t{17, STAT_COLUMN}, currentHitPointsColor());
+    printHeaderNumber("AC  ", py.misc.display_ac, Coord_t{19, STAT_COLUMN}, Color_Title);
+    printHeaderLongNumber("GOLD", py.misc.au, Coord_t{20, STAT_COLUMN}, Color_Title);
     printCharacterWinner();
 
     uint32_t status = py.flags.status;
@@ -475,10 +530,10 @@ void printCharacterInformation() {
         return;
     }
 
-    putString(py.misc.name, Coord_t{2, 15});
-    putString(character_races[py.misc.race_id].name, Coord_t{3, 15});
-    putString((playerGetGenderLabel()), Coord_t{4, 15});
-    putString(classes[py.misc.class_id].title, Coord_t{5, 15});
+    putString(py.misc.name, Coord_t{2, 15}, Color_Title);
+    putString(character_races[py.misc.race_id].name, Coord_t{3, 15}, Color_Title);
+    putString((playerGetGenderLabel()), Coord_t{4, 15}, Color_Title);
+    putString(classes[py.misc.class_id].title, Coord_t{5, 15}, Color_Title);
 }
 
 // Prints the following information on the screen. -JWT-
@@ -487,19 +542,48 @@ void printCharacterStats() {
         vtype_t buf = {'\0'};
 
         statsAsString(py.stats.used[i], buf);
+        int color = Color_OK;
+        if (py.stats.current[i] <= py.stats.max[i] / 5) {
+            color = Color_Warning;
+        } else if (py.stats.current[i] < py.stats.max[i]) {
+            color = Color_Attention;
+        }
+
         putString(stat_names[i], Coord_t{2 + i, 61});
-        putString(buf, Coord_t{2 + i, 66});
+        putString(buf, Coord_t{2 + i, 66}, color);
 
         if (py.stats.max[i] > py.stats.current[i]) {
             statsAsString(py.stats.max[i], buf);
-            putString(buf, Coord_t{2 + i, 73});
+            putString(buf, Coord_t{2 + i, 73}, Color_Title);
         }
     }
 
-    printHeaderNumber("+ To Hit    ", py.misc.display_to_hit, Coord_t{9, 1});
-    printHeaderNumber("+ To Damage ", py.misc.display_to_damage, Coord_t{10, 1});
-    printHeaderNumber("+ To AC     ", py.misc.display_to_ac, Coord_t{11, 1});
-    printHeaderNumber("  Total AC  ", py.misc.display_ac, Coord_t{12, 1});
+    printHeaderNumber("+ To Hit    ", py.misc.display_to_hit, Coord_t{9, 1}, Color_Title);
+    printHeaderNumber("+ To Damage ", py.misc.display_to_damage, Coord_t{10, 1}, Color_Title);
+    printHeaderNumber("+ To AC     ", py.misc.display_to_ac, Coord_t{11, 1}, Color_Title);
+    printHeaderNumber("  Total AC  ", py.misc.display_ac, Coord_t{12, 1}, Color_Title);
+}
+
+// Returns a color of x depending on y
+int statColor(Coord_t coord) {
+    switch (coord.x / coord.y) {
+        case -3:
+        case -2:
+        case -1:
+        case 0:
+        case 1:
+            return Color_Warning;
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+            return Color_Attention;
+        case 6:
+        case 7:
+        case 8:
+        default:
+            return Color_OK;
+    }
 }
 
 // Returns a rating of x depending on y -JWT-
@@ -531,29 +615,29 @@ const char *statRating(Coord_t coord) {
 
 // Prints age, height, weight, and SC -JWT-
 void printCharacterVitalStatistics() {
-    printHeaderNumber("Age          ", (int) py.misc.age, Coord_t{2, 38});
-    printHeaderNumber("Height       ", (int) py.misc.height, Coord_t{3, 38});
-    printHeaderNumber("Weight       ", (int) py.misc.weight, Coord_t{4, 38});
-    printHeaderNumber("Social Class ", (int) py.misc.social_class, Coord_t{5, 38});
+    printHeaderNumber("Age          ", (int) py.misc.age, Coord_t{2, 38}, Color_Title);
+    printHeaderNumber("Height       ", (int) py.misc.height, Coord_t{3, 38}, Color_Title);
+    printHeaderNumber("Weight       ", (int) py.misc.weight, Coord_t{4, 38}, Color_Title);
+    printHeaderNumber("Social Class ", (int) py.misc.social_class, Coord_t{5, 38}, Color_Title);
 }
 
 // Prints the following information on the screen. -JWT-
 void printCharacterLevelExperience() {
-    printHeaderLongNumber7Spaces("Level      ", (int32_t) py.misc.level, Coord_t{9, 28});
-    printHeaderLongNumber7Spaces("Experience ", py.misc.exp, Coord_t{10, 28});
-    printHeaderLongNumber7Spaces("Max Exp    ", py.misc.max_exp, Coord_t{11, 28});
+    printHeaderLongNumber7Spaces("Level      ", (int32_t) py.misc.level, Coord_t{9, 28}, Color_Title);
+    printHeaderLongNumber7Spaces("Experience ", py.misc.exp, Coord_t{10, 28}, currentExperienceColor());
+    printHeaderLongNumber7Spaces("Max Exp    ", py.misc.max_exp, Coord_t{11, 28}, Color_Title);
 
     if (py.misc.level >= PLAYER_MAX_LEVEL) {
         putStringClearToEOL("Exp to Adv.: *******", Coord_t{12, 28});
     } else {
-        printHeaderLongNumber7Spaces("Exp to Adv.", (int32_t)(py.base_exp_levels[py.misc.level - 1] * py.misc.experience_factor / 100), Coord_t{12, 28});
+        printHeaderLongNumber7Spaces("Exp to Adv.", (int32_t)(py.base_exp_levels[py.misc.level - 1] * py.misc.experience_factor / 100), Coord_t{12, 28}, Color_Title);
     }
 
-    printHeaderLongNumber7Spaces("Gold       ", py.misc.au, Coord_t{13, 28});
-    printHeaderNumber("Max Hit Points ", py.misc.max_hp, Coord_t{9, 52});
-    printHeaderNumber("Cur Hit Points ", py.misc.current_hp, Coord_t{10, 52});
-    printHeaderNumber("Max Mana       ", py.misc.mana, Coord_t{11, 52});
-    printHeaderNumber("Cur Mana       ", py.misc.current_mana, Coord_t{12, 52});
+    printHeaderLongNumber7Spaces("Gold       ", py.misc.au, Coord_t{13, 28}, Color_Title);
+    printHeaderNumber("Max Hit Points ", py.misc.max_hp, Coord_t{9, 52}, Color_Title);
+    printHeaderNumber("Cur Hit Points ", py.misc.current_hp, Coord_t{10, 52}, currentHitPointsColor());
+    printHeaderNumber("Max Mana       ", py.misc.mana, Coord_t{11, 52}, Color_Title);
+    printHeaderNumber("Cur Mana       ", py.misc.current_mana, Coord_t{12, 52}, currentManaColor());
 }
 
 // Prints ratings on certain abilities -RAK-
@@ -585,23 +669,23 @@ void printCharacterAbilities() {
 
     putString("(Miscellaneous Abilities)", Coord_t{15, 25});
     putString("Fighting    :", Coord_t{16, 1});
-    putString(statRating(Coord_t{12, xbth}), Coord_t{16, 15});
+    putString(statRating(Coord_t{12, xbth}), Coord_t{16, 15}, statColor(Coord_t{12, xbth}));
     putString("Bows/Throw  :", Coord_t{17, 1});
-    putString(statRating(Coord_t{12, xbthb}), Coord_t{17, 15});
+    putString(statRating(Coord_t{12, xbthb}), Coord_t{17, 15}, statColor(Coord_t{12, xbthb}));
     putString("Saving Throw:", Coord_t{18, 1});
-    putString(statRating(Coord_t{6, xsave}), Coord_t{18, 15});
+    putString(statRating(Coord_t{6, xsave}), Coord_t{18, 15}, statColor(Coord_t{6, xsave}));
 
     putString("Stealth     :", Coord_t{16, 28});
-    putString(statRating(Coord_t{1, xstl}), Coord_t{16, 42});
+    putString(statRating(Coord_t{1, xstl}), Coord_t{16, 42}, statColor(Coord_t{1, xstl}));
     putString("Disarming   :", Coord_t{17, 28});
-    putString(statRating(Coord_t{8, xdis}), Coord_t{17, 42});
+    putString(statRating(Coord_t{8, xdis}), Coord_t{17, 42}, statColor(Coord_t{8, xdis}));
     putString("Magic Device:", Coord_t{18, 28});
-    putString(statRating(Coord_t{6, xdev}), Coord_t{18, 42});
+    putString(statRating(Coord_t{6, xdev}), Coord_t{18, 42}, statColor(Coord_t{6, xdev}));
 
     putString("Perception  :", Coord_t{16, 55});
-    putString(statRating(Coord_t{3, xfos}), Coord_t{16, 69});
+    putString(statRating(Coord_t{3, xfos}), Coord_t{16, 69}, statColor(Coord_t{3, xfos}));
     putString("Searching   :", Coord_t{17, 55});
-    putString(statRating(Coord_t{6, xsrh}), Coord_t{17, 69});
+    putString(statRating(Coord_t{6, xsrh}), Coord_t{17, 69}, statColor(Coord_t{6, xsrh}));
     putString("Infra-Vision:", Coord_t{18, 55});
     putString(xinfra, Coord_t{18, 69});
 }
@@ -623,7 +707,7 @@ void getCharacterName() {
 
     if (!getStringInput(py.misc.name, Coord_t{2, 15}, 23) || py.misc.name[0] == 0) {
         getDefaultPlayerName(py.misc.name);
-        putString(py.misc.name, Coord_t{2, 15});
+        putString(py.misc.name, Coord_t{2, 15}, Color_Title);
     }
 
     clearToBottom(20);

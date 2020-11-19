@@ -79,6 +79,7 @@ set(source_dir ${PROJECT_SOURCE_DIR}/src)
 set(
         source_files
         ${source_dir}/character.h
+        ${source_dir}/color.h
         ${source_dir}/config.h
         ${source_dir}/curses.h
         ${source_dir}/dice.h
@@ -116,6 +117,7 @@ set(
         ${source_dir}/data_tables.cpp
         ${source_dir}/data_treasure.cpp
         ${source_dir}/character.cpp
+        ${source_dir}/color.cpp
         ${source_dir}/dice.cpp
         ${source_dir}/dungeon.cpp
         ${source_dir}/dungeon_generate.cpp

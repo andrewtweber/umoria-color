@@ -12,7 +12,7 @@
 #include "headers.h"
 
 // Following are arrays for descriptive pieces
-const char *colors[MAX_COLORS] = {
+const char *potions[MAX_POTIONS] = {
     // Do not move the first three
     "Icky Green",  "Light Brown",  "Clear",
     "Azure", "Blue", "Blue Speckled", "Black", "Brown", "Brown Speckled", "Bubbling",
@@ -25,10 +25,28 @@ const char *colors[MAX_COLORS] = {
     "Tangerine", "Violet", "Vermilion", "White", "Yellow",
 };
 
+int potion_colors[MAX_POTIONS] = {
+    Color_Icky_Green, Color_Light_Brown, Color_Clear,
+    Color_Azure, Color_Blue, Color_Blue, Color_Black, Color_Brown, Color_Brown, Color_Bubbling,
+    Color_Chartreuse, Color_Cloudy, Color_Copper, Color_Crimson, Color_Cyan, Color_Dark_Blue,
+    Color_Dark_Green, Color_Dark_Red, Color_Gold, Color_Green, Color_Green, Color_Medium_Grey_High,
+    Color_Medium_Grey_Low, Color_Hazy, Color_Indigo, Color_Light_Blue, Color_Light_Green, Color_Magenta,
+    Color_Metallic_Blue, Color_Metallic_Red, Color_Metallic_Green, Color_Metallic_Purple, Color_Misty,
+    Color_Orange, Color_Orange, Color_Pink, Color_Pink, Color_Puce, Color_Purple,
+    Color_Purple, Color_Red, Color_Red, Color_Silver, Color_Smoky,
+    Color_Tangerine, Color_Violet, Color_Vermilion, Color_White, Color_Yellow,
+};
+
 const char *mushrooms[MAX_MUSHROOMS] = {
     "Blue", "Black", "Black Spotted", "Brown", "Dark Blue", "Dark Green", "Dark Red",
     "Ecru", "Furry", "Green", "Grey", "Light Blue", "Light Green", "Plaid", "Red",
     "Slimy", "Tan", "White", "White Spotted", "Wooden", "Wrinkled", "Yellow",
+};
+
+int mushroom_colors[MAX_MUSHROOMS] = {
+    Color_Blue, Color_Black, Color_Black, Color_Brown, Color_Dark_Blue, Color_Dark_Green, Color_Dark_Red,
+    Color_Ecru, Color_Furry, Color_Green, Color_Medium_Grey_High, Color_Light_Blue, Color_Light_Green, Color_Plaid, Color_Red,
+    Color_Slimy, Color_Tan, Color_White, Color_White, Color_Wooden, Color_Wrinkled, Color_Yellow,
 };
 
 const char *woods[MAX_WOODS] = {
@@ -38,11 +56,25 @@ const char *woods[MAX_WOODS] = {
     "Teak", "Walnut",
 };
 
+int wood_colors[MAX_WOODS] = {
+    Color_Aspen, Color_Balsa, Color_Banyan, Color_Birch, Color_Cedar, Color_Cottonwood, Color_Cypress, Color_Dogwood,
+    Color_Elm, Color_Eucalyptus, Color_Hemlock, Color_Hickory, Color_Ironwood, Color_Locust, Color_Mahogany,
+    Color_Maple, Color_Mulberry, Color_Oak, Color_Pine, Color_Redwood, Color_Rosewood, Color_Spruce, Color_Sycamore,
+    Color_Teak, Color_Walnut,
+};
+
 const char *metals[MAX_METALS] = {
     "Aluminum", "Cast Iron", "Chromium", "Copper", "Gold", "Iron", "Magnesium",
     "Molybdenum", "Nickel", "Rusty", "Silver", "Steel", "Tin", "Titanium", "Tungsten",
     "Zirconium", "Zinc", "Aluminum-Plated", "Copper-Plated", "Gold-Plated",
     "Nickel-Plated", "Silver-Plated", "Steel-Plated", "Tin-Plated", "Zinc-Plated",
+};
+
+int metal_colors[MAX_METALS] = {
+    Color_Aluminum, Color_Cast_Iron, Color_Chromium, Color_Copper, Color_Gold, Color_Iron, Color_Magnesium,
+    Color_Molybdenum, Color_Nickel, Color_Rusty, Color_Silver, Color_Steel, Color_Tin, Color_Titanium, Color_Tungsten,
+    Color_Zirconium, Color_Zinc, Color_Aluminum, Color_Copper, Color_Gold,
+    Color_Nickel, Color_Silver, Color_Steel, Color_Tin, Color_Zinc,
 };
 
 const char *rocks[MAX_ROCKS] = {
@@ -53,9 +85,22 @@ const char *rocks[MAX_ROCKS] = {
     "Tiger Eye", "Topaz", "Turquoise", "Zircon",
 };
 
+int rock_colors[MAX_ROCKS] = {
+    Color_Alexandrite, Color_Amethyst, Color_Aquamarine, Color_Azurite, Color_Beryl, Color_Bloodstone,
+    Color_Calcite, Color_Carnelian, Color_Corundum, Color_Diamond, Color_Emerald, Color_Fluorite, Color_Garnet,
+    Color_Granite, Color_Jade, Color_Jasper, Color_Lapis_Lazuli, Color_Malachite, Color_Marble, Color_Moonstone,
+    Color_Onyx, Color_Opal, Color_Pearl, Color_Quartz, Color_Quartzite, Color_Rhodonite, Color_Ruby, Color_Sapphire,
+    Color_Tiger_Eye, Color_Topaz, Color_Turquoise, Color_Zircon,
+};
+
 const char *amulets[MAX_AMULETS] = {
     "Amber", "Driftwood", "Coral", "Agate", "Ivory", "Obsidian",
     "Bone", "Brass", "Bronze", "Pewter", "Tortoise Shell",
+};
+
+int amulet_colors[MAX_AMULETS] = {
+    Color_Amber, Color_Driftwood, Color_Coral, Color_Agate, Color_Ivory, Color_Obsidian,
+    Color_Bone, Color_Brass, Color_Bronze, Color_Pewter, Color_Tortoise_Shell,
 };
 
 const char *syllables[MAX_SYLLABLES] = {
