@@ -467,8 +467,8 @@ void dungeonLiteSpot(Coord_t const &coord) {
     panelPutTile(symbol, caveGetTileColor(coord), coord);
 }
 
-// Redraw any visible creatures with effects
-static void redrawEffectCreatures(Coord_t const &coord) {
+// Redraw any visible creatures or treasures with effects
+static void redrawEffects(Coord_t const &coord) {
     int height_middle = (SCREEN_HEIGHT / 2);
     int width_middle = (SCREEN_WIDTH / 2);
 
@@ -481,15 +481,17 @@ static void redrawEffectCreatures(Coord_t const &coord) {
 
     for (location.y = top; location.y <= bottom; location.y++) {
         for (location.x = left; location.x <= right; location.x++) {
-            if (caveTileVisible(location)) {
-                Tile_t &tile = dg.floor[location.y][location.x];
+            Tile_t &tile = dg.floor[location.y][location.x];
 
-                if ((tile.creature_id  > 1 && monsters[tile.creature_id].lit) || tile.treasure_id) {
-                    int color = caveGetTileColor(location);
+            if ((tile.creature_id  > 1 && monsterIsVisible(monsters[tile.creature_id]))
+                || (tile.treasure_id && caveTileVisible(location))
+            ) {
+                int color = caveGetTileColor(location);
 
-                    if (color == Color_Fire || color == Color_Random) {
-                        panelPutTile(caveGetTileSymbol(location), caveGetTileColor(location), location);
-                    }
+                if (color == Color_Fire || color == Color_Random ||
+                    (tile.creature_id > 1 && (color == Color_Glowing || color == Color_Lightning))
+                ) {
+                    panelPutTile(caveGetTileSymbol(location), caveGetTileColor(location), location);
                 }
             }
         }
@@ -560,7 +562,7 @@ static void sub1MoveLight(Coord_t const &from, Coord_t const &to) {
         }
     }
 
-    redrawEffectCreatures(to);
+    redrawEffects(to);
 }
 
 // When blinded,  move only the player symbol.

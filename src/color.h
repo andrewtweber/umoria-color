@@ -92,7 +92,7 @@ typedef struct {
 #define Color_Earth            64
 #define Color_Air              65
 #define Color_Frost            66
-#define Color_Lightning        67
+#define Color_Glowing          67
 #define Color_Gelatinous       68
 #define Color_Umber            69
 #define Color_Crystal          70
@@ -214,7 +214,11 @@ typedef struct {
 #define Color_Poison_Gas       174
 #define Color_Holy_Orb         175
 
-#define MAX_COLORS             176
+/* New Colors */
+#define Color_Lightning        176
+#define Color_Deep_Black       177
+
+#define MAX_COLORS             178
 
 /* defined as a special case... */
 #define Color_Random           255
