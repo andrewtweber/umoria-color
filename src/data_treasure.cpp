@@ -474,14 +474,14 @@ DungeonObject_t game_objects[MAX_OBJECTS_IN_GAME] = {
     {"a gas trap",                    0x00000000L, TV_INVIS_TRAP,   '^',  3, 0,  5, 1, 0, 0, 0, 0, 0, {1, 4},  95, Color_White}, // 382
     {"a loose rock",                  0x00000000L, TV_INVIS_TRAP,   ';',  0, 0,  6, 1, 0, 0, 0, 0, 0, {0, 0},  10, Color_Wall}, // 383
     {"a dart trap",                   0x00000000L, TV_INVIS_TRAP,   '^',  5, 0,  7, 1, 0, 0, 0, 0, 0, {1, 4}, 110, Color_Warning}, // 384
-    {"a strange rune",                0x00000000L, TV_INVIS_TRAP,   '^',  5, 0,  8, 1, 0, 0, 0, 0, 0, {0, 0},  90, Color_Warning}, // 385
+    {"a strange rune",                0x00000000L, TV_INVIS_TRAP,   '^',  5, 0,  8, 1, 0, 0, 0, 0, 0, {0, 0},  90, Color_Light_Blue}, // 385
     {"some loose rock",               0x00000000L, TV_INVIS_TRAP,   '^',  5, 0,  9, 1, 0, 0, 0, 0, 0, {2, 6},  90, Color_Wall}, // 386
-    {"a gas trap",                    0x00000000L, TV_INVIS_TRAP,   '^', 10, 0, 10, 1, 0, 0, 0, 0, 0, {1, 4}, 105, Color_Warning}, // 387
-    {"a strange rune",                0x00000000L, TV_INVIS_TRAP,   '^',  5, 0, 11, 1, 0, 0, 0, 0, 0, {0, 0},  90, Color_Warning}, // 388
+    {"a gas trap",                    0x00000000L, TV_INVIS_TRAP,   '^', 10, 0, 10, 1, 0, 0, 0, 0, 0, {1, 4}, 105, Color_Acid}, // 387
+    {"a strange rune",                0x00000000L, TV_INVIS_TRAP,   '^',  5, 0, 11, 1, 0, 0, 0, 0, 0, {0, 0},  90, Color_Light_Blue}, // 388
     {"a blackened spot",              0x00000000L, TV_INVIS_TRAP,   '^', 10, 0, 12, 1, 0, 0, 0, 0, 0, {4, 6}, 110, Color_Black}, // 389
-    {"some corroded rock",            0x00000000L, TV_INVIS_TRAP,   '^', 10, 0, 13, 1, 0, 0, 0, 0, 0, {4, 6}, 110, Color_Warning}, // 390
+    {"some corroded rock",            0x00000000L, TV_INVIS_TRAP,   '^', 10, 0, 13, 1, 0, 0, 0, 0, 0, {4, 6}, 110, Color_Acid}, // 390
     {"a gas trap",                    0x00000000L, TV_INVIS_TRAP,   '^',  5, 0, 14, 1, 0, 0, 0, 0, 0, {2, 6}, 105, Color_Poison_Gas}, // 391
-    {"a gas trap",                    0x00000000L, TV_INVIS_TRAP,   '^',  5, 0, 15, 1, 0, 0, 0, 0, 0, {1, 4}, 110, Color_Poison_Gas}, // 392
+    {"a gas trap",                    0x00000000L, TV_INVIS_TRAP,   '^',  5, 0, 15, 1, 0, 0, 0, 0, 0, {1, 4}, 110, Color_Orange}, // 392
     {"a gas trap",                    0x00000000L, TV_INVIS_TRAP,   '^',  5, 0, 16, 1, 0, 0, 0, 0, 0, {1, 8}, 105, Color_Poison_Gas}, // 393
     {"a dart trap",                   0x00000000L, TV_INVIS_TRAP,   '^',  5, 0, 17, 1, 0, 0, 0, 0, 0, {1, 8}, 110, Color_Yellow}, // 394
     {"a dart trap",                   0x00000000L, TV_INVIS_TRAP,   '^',  5, 0, 18, 1, 0, 0, 0, 0, 0, {1, 8}, 110, Color_Warning}, // 395
