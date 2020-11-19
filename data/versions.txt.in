@@ -2,6 +2,7 @@
 
 Previous major releases:
 
+            2020-11-19 : v5.8.0
             2016-11-27 : v5.7.0
             2008-10-13 : v5.6.0
             1994-07-21 : v5.5.2
@@ -15,9 +16,9 @@ Previous major releases:
 
 Maintainer: David J. Grabiner (grabiner@alumni.princeton.edu)
 
-Umoria 5.7.x developed and maintained by Michael R. Cook.
+Umoria 5.8.x developed and maintained by Andrew Weber.
 Bug reports and contributions can be made to the Umoria repository:
-https://github.com/dungeons-of-moria/umoria
+https://github.com/andrewtweber/umoria-color
 
                Umoria is free software released under GPL v2.0
 

@@ -6,6 +6,11 @@ the VMS Moria sources and created Umoria from 1987-94.
 In 2008 Moria/Umoria was re-licensed under the GNU General Public License
 version 2.0. All new additions to the code will fall under this license.
 
+## Umoria 5.8.x (COLOR)
+
+Andrew Weber [-ATW-] (GPL v2)
+
+Ported from Colour-Umoria by Edouard Poor [-EMP-] (GPL v2)
 
 ## Umoria 5.7.x
 

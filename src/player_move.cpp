@@ -526,6 +526,7 @@ void playerMove(int direction, bool do_pickup) {
                 if (game.treasure.list[tile.treasure_id].category_id == TV_RUBBLE) {
                     printMessage("There is rubble blocking your way.");
                 } else if (game.treasure.list[tile.treasure_id].category_id == TV_CLOSED_DOOR) {
+                    // Attempt to open closed door when you walk into it -ATW-
                     openClosedDoor(coord);
                     //printMessage("There is a closed door blocking your way.");
                 }

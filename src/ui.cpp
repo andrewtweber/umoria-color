@@ -242,9 +242,10 @@ void printCharacterTitle() {
 
 // Prints level -RAK-
 void printCharacterLevel() {
-    printNumber((int) py.misc.level, Coord_t{13, STAT_COLUMN + 6}, Color_OK);
+    printNumber((int) py.misc.level, Coord_t{13, STAT_COLUMN + 6}, Color_Title);
 }
 
+// Color for current mana -ATW-
 int currentManaColor() {
     if (py.misc.mana && py.misc.current_mana <= py.misc.mana / 5) {
         return Color_Warning;
@@ -261,9 +262,10 @@ void printCharacterCurrentMana() {
 
 // Prints Max hit points -RAK-
 void printCharacterMaxHitPoints() {
-    printNumber(py.misc.max_hp, Coord_t{16, STAT_COLUMN + 6}, Color_OK);
+    printNumber(py.misc.max_hp, Coord_t{16, STAT_COLUMN + 6}, Color_Title);
 }
 
+// Color for current hit points -ATW-
 int currentHitPointsColor() {
     if (py.misc.current_hp <= py.misc.max_hp / 5) {
         return Color_Warning;
@@ -278,8 +280,9 @@ void printCharacterCurrentHitPoints() {
     printNumber(py.misc.current_hp, Coord_t{17, STAT_COLUMN + 6}, currentHitPointsColor());
 }
 
+// Color for current experience -ATW-
 int currentExperienceColor() {
-    if (py.misc.exp <= py.misc.max_exp / 5) {
+    if (py.misc.max_exp > 0 && py.misc.exp <= py.misc.max_exp / 5) {
         return Color_Warning;
     } else if (py.misc.exp < py.misc.max_exp) {
         return Color_Attention;
@@ -289,12 +292,12 @@ int currentExperienceColor() {
 
 // prints current AC -RAK-
 void printCharacterCurrentArmorClass() {
-    printNumber(py.misc.display_ac, Coord_t{19, STAT_COLUMN + 6}, Color_OK);
+    printNumber(py.misc.display_ac, Coord_t{19, STAT_COLUMN + 6}, Color_Title);
 }
 
 // Prints current gold -RAK-
 void printCharacterGoldValue() {
-    printLongNumber(py.misc.au, Coord_t{20, STAT_COLUMN + 6}, Color_OK);
+    printLongNumber(py.misc.au, Coord_t{20, STAT_COLUMN + 6}, Color_Title);
 }
 
 // Prints depth in stat area -RAK-
@@ -464,9 +467,9 @@ void printCharacterWinner() {
 
 // Prints character-screen info -RAK-
 void printCharacterStatsBlock() {
-    printCharacterInfoInField(character_races[py.misc.race_id].name, Coord_t{2, STAT_COLUMN});
-    printCharacterInfoInField(classes[py.misc.class_id].title, Coord_t{3, STAT_COLUMN});
-    printCharacterInfoInField(playerRankTitle(), Coord_t{4, STAT_COLUMN});
+    printCharacterInfoInField(character_races[py.misc.race_id].name, Coord_t{2, STAT_COLUMN}, Color_Title);
+    printCharacterInfoInField(classes[py.misc.class_id].title, Coord_t{3, STAT_COLUMN}, Color_Title);
+    printCharacterInfoInField(playerRankTitle(), Coord_t{4, STAT_COLUMN}, Color_Title);
 
     for (int i = 0; i < 6; i++) {
         displayCharacterStats(i);
@@ -564,7 +567,7 @@ void printCharacterStats() {
     printHeaderNumber("  Total AC  ", py.misc.display_ac, Coord_t{12, 1}, Color_Title);
 }
 
-// Returns a color of x depending on y
+// Returns a color of x depending on y -EMP-
 int statColor(Coord_t coord) {
     switch (coord.x / coord.y) {
         case -3:
@@ -856,5 +859,5 @@ void displayCharacterExperience() {
         py.misc.max_exp = py.misc.exp;
     }
 
-    printLongNumber(py.misc.exp, Coord_t{14, STAT_COLUMN + 6});
+    printLongNumber(py.misc.exp, Coord_t{14, STAT_COLUMN + 6}, currentExperienceColor());
 }

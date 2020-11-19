@@ -5,6 +5,17 @@ Tracking all changes since the 5.6.0 release.
 
 ## HEAD
 
+## 5.8.1 (2020-11-19)
+
+- Bugfix displaying current experience color
+- Option to enable/disable colors, with fallback for terminals without colors
+
+## 5.8.0 (2020-11-18)
+
+- Colors! Adapted from Colour-Umoria by Edouard Poor. Many colors and color assignments were adjusted
+- Disable roguelike keys by default
+- Walking into a door will attempt to open it automatically without having to press the `'o'` key
+- Fire, lightning, and glowing effects were added
 
 ## 5.7.13 (2020-08-22)
 
