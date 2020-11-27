@@ -36,7 +36,7 @@ Color_t colors[255] = {
 {0, 152,  32,   0}, /* Color_Dark_Orange      */
 {0,  84,   0, 176}, /* Color_Dark_Purple      */
 {0, 240, 240, 176}, /* Color_Cream            */
-{0, 240, 192,  64}, /* Color_Amber            */
+{0, 240, 150,  20}, /* Color_Amber            */
 {0, 224, 208, 176}, /* Color_Driftwood        */
 {0, 224,  64,  96}, /* Color_Coral            */
 {0, 224, 192,  96}, /* Color_Agate            */
@@ -44,8 +44,8 @@ Color_t colors[255] = {
 {0,  64,  64, 128}, /* Color_Obsidian         */
 {0, 224, 224, 208}, /* Color_Bone             */
 {0, 224, 192,   0}, /* Color_Brass            */
-{0, 208, 176,   0}, /* Color_Bronze           */
-{0, 224, 224, 224}, /* Color_Pewter           */
+{0, 176, 141,  87}, /* Color_Bronze           */
+{0, 150, 150, 192}, /* Color_Pewter           */
 {0, 208, 192,  96}, /* Color_Tortoise_Shell   */
 {0, 240, 240, 240}, /* Color_Aluminum         */
 {0, 160, 160, 176}, /* Color_Cast_Iron        */
@@ -57,7 +57,7 @@ Color_t colors[255] = {
 {0, 240, 240, 240}, /* Color_Molybdenum       */
 {0, 240, 240, 240}, /* Color_Nickel           */
 {0, 208,  96,  32}, /* Color_Rusty            */
-{0, 196, 202, 206}, /* Color_Silver           */
+{0, 160, 180, 224}, /* Color_Silver           */
 {0, 224, 224, 240}, /* Color_Steel            */
 {0, 224, 224, 224}, /* Color_Tin              */
 {0, 160, 160, 176}, /* Color_Titanium         */
@@ -79,7 +79,7 @@ Color_t colors[255] = {
 {0, 240, 240, 176}, /* Color_Glowing          */
 {0, 160, 224, 160}, /* Color_Gelatinous       */
 {0, 208, 176,  64}, /* Color_Umber            */
-{0, 128, 224, 255}, /* Color_Crystal          */
+{0, 224, 160, 255}, /* Color_Crystal          */
 {0, 128,  96,  77}, /* Color_Brown            */
 {0, 240, 224, 160}, /* Color_Ecru             */
 {0, 224, 160,   0}, /* Color_Furry            */
@@ -89,8 +89,8 @@ Color_t colors[255] = {
 {0, 208, 144,  80}, /* Color_Wooden           */
 {0, 208, 208, 176}, /* Color_Wrinkled         */
 {0, 160, 255,   0}, /* Color_Icky_Green       */
-{0, 240, 192,   0}, /* Color_Light_Brown      */
-{0, 255, 255, 255}, /* Color_Clear            */
+{0, 181, 101,  29}, /* Color_Light_Brown      */
+{0, 200, 200, 255}, /* Color_Clear            */
 {0, 128, 192, 255}, /* Color_Azure            */
 {0, 240, 240, 240}, /* Color_Bubbling         */
 {0, 176, 208, 112}, /* Color_Chartreuse       */
@@ -108,9 +108,9 @@ Color_t colors[255] = {
 {0, 255, 144, 224}, /* Color_Pink             */
 {0, 176,  96, 128}, /* Color_Puce             */
 {0, 112,  96,  96}, /* Color_Smoky            */
-{0, 208,  96,   0}, /* Color_Tangerine        */
+{0, 242, 133,   0}, /* Color_Tangerine        */
 {0, 224,   0, 240}, /* Color_Violet           */
-{0, 255, 112,   0}, /* Color_Vermilion        */
+{0, 227,  66,  52}, /* Color_Vermilion        */
 {0, 112, 208,   0}, /* Color_Alexandrite      */
 {0, 176,   0, 255}, /* Color_Amethyst         */
 {0,   0, 208, 196}, /* Color_Aquamarine       */
@@ -145,7 +145,7 @@ Color_t colors[255] = {
 {0, 240, 224,  64}, /* Color_Zircon           */
 {0, 176, 112,  96}, /* Color_Food             */
 {0, 144, 208,   0}, /* Color_Slime            */
-{0, 144, 112,  32}, /* Color_Leather          */
+{0, 120,  50,  32}, /* Color_Leather          */
 {0, 208, 224, 224}, /* Color_Cord             */
 {0, 240, 240, 224}, /* Color_Paper            */
 {0, 208, 192, 160}, /* Color_Old_Parchment    */
@@ -156,7 +156,7 @@ Color_t colors[255] = {
 {0,  96, 112,  96}, /* Color_Acid             */
 {0, 208, 224, 224}, /* Color_Pottery          */
 {0, 176,  64,  96}, /* Color_Wine             */
-{0, 255, 255, 208}, /* Color_Mithril          */
+{0, 255, 255, 224}, /* Color_Mithril          */
 {0, 224, 176,  96}, /* Color_Aspen            */
 {0, 240, 224, 208}, /* Color_Balsa            */
 {0, 224, 192, 128}, /* Color_Banyan           */
