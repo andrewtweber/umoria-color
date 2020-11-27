@@ -518,6 +518,7 @@ void playerMove(int direction, bool do_pickup) {
             }
         } else {
             // Can't move onto floor space
+            bool free_turn = true;
 
             if ((py.running_tracker == 0) && tile.treasure_id != 0) {
                 if (game.treasure.list[tile.treasure_id].category_id == TV_RUBBLE) {
@@ -525,12 +526,13 @@ void playerMove(int direction, bool do_pickup) {
                 } else if (game.treasure.list[tile.treasure_id].category_id == TV_CLOSED_DOOR) {
                     // Attempt to open closed door when you walk into it -ATW-
                     openClosedDoor(coord);
+                    free_turn = false;
                     //printMessage("There is a closed door blocking your way.");
                 }
             } else {
                 playerEndRunning();
             }
-            game.player_free_turn = true;
+            game.player_free_turn = free_turn;
         }
     } else {
         // Attacking a creature!
