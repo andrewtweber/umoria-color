@@ -250,6 +250,7 @@ int caveGetTileColor(Coord_t const &coord) {
                 if ((game.treasure.list[tile.treasure_id].sub_category_id & (ITEM_SINGLE_STACK_MIN - 1)) < MAX_MUSHROOMS) {
                     return mushroom_colors[game.treasure.list[tile.treasure_id].sub_category_id & (ITEM_SINGLE_STACK_MIN - 1)];
                 }
+                // fall through
             default:
                 return game_objects[game.treasure.list[tile.treasure_id].id].color;
         }
