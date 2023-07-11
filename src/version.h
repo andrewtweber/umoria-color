@@ -8,4 +8,4 @@
 // then you must also update the CMakeLists.txt.
 constexpr uint8_t CURRENT_VERSION_MAJOR = 5;
 constexpr uint8_t CURRENT_VERSION_MINOR = 8;
-constexpr uint8_t CURRENT_VERSION_PATCH = 2;
+constexpr uint8_t CURRENT_VERSION_PATCH = 3;
