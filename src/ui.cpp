@@ -144,11 +144,11 @@ void statsAsString(uint8_t stat, char *stat_string) {
     int percentile = stat - 18;
 
     if (stat <= 18) {
-        (void) sprintf(stat_string, "%6d", stat);
+        (void) snprintf(stat_string, 80, "%6d", stat);
     } else if (percentile == 100) {
         (void) strcpy(stat_string, "18/100");
     } else {
-        (void) sprintf(stat_string, " 18/%02d", percentile);
+        (void) snprintf(stat_string, 80, " 18/%02d", percentile);
     }
 }
 
@@ -179,56 +179,56 @@ static void printCharacterInfoInField(const char *info, Coord_t coord, int color
 // Print long number with header at given row, column
 static void printHeaderLongNumber(const char *header, int32_t num, Coord_t coord, int color = -1) {
     vtype_t str = {'\0'};
-    (void) sprintf(str, "%s: ", header);
+    (void) snprintf(str, 80, "%s: ", header);
     putString(str, coord);
 
     int size = 0;
     while (header[size] != '\0') size++;
     Coord_t num_coord{ coord.y, coord.x + size + 2 };
     vtype_t num_str = {'\0'};
-    (void) sprintf(num_str, "%6d", num);
+    (void) snprintf(num_str, 80, "%6d", num);
     putString(num_str, num_coord, color);
 }
 
 // Print long number (7 digits of space) with header at given row, column
 static void printHeaderLongNumber7Spaces(const char *header, int32_t num, Coord_t coord, int color = -1) {
     vtype_t str = {'\0'};
-    (void) sprintf(str, "%s: ", header);
+    (void) snprintf(str, 80, "%s: ", header);
     putString(str, coord);
 
     int size = 0;
     while (header[size] != '\0') size++;
     Coord_t num_coord{ coord.y, coord.x + size + 2 };
     vtype_t num_str = {'\0'};
-    (void) sprintf(num_str, "%7d", num);
+    (void) snprintf(num_str, 80, "%7d", num);
     putString(num_str, num_coord, color);
 }
 
 // Print number with header at given row, column -RAK-
 static void printHeaderNumber(const char *header, int num, Coord_t coord, int color = -1) {
     vtype_t str = {'\0'};
-    (void) sprintf(str, "%s: ", header);
+    (void) snprintf(str, 80, "%s: ", header);
     putString(str, coord);
 
     int size = 0;
     while (header[size] != '\0') size++;
     Coord_t num_coord{ coord.y, coord.x + size + 2 };
     vtype_t num_str = {'\0'};
-    (void) sprintf(num_str, "%6d", num);
+    (void) snprintf(num_str, 80, "%6d", num);
     putString(num_str, num_coord, color);
 }
 
 // Print long number at given row, column
 static void printLongNumber(int32_t num, Coord_t coord, int color = -1) {
     vtype_t str = {'\0'};
-    (void) sprintf(str, "%6d", num);
+    (void) snprintf(str, 80, "%6d", num);
     putString(str, coord, color);
 }
 
 // Print number at given row, column -RAK-
 static void printNumber(int num, Coord_t coord, int color = -1) {
     vtype_t str = {'\0'};
-    (void) sprintf(str, "%6d", num);
+    (void) snprintf(str, 80, "%6d", num);
     putString(str, coord, color);
 }
 
@@ -306,7 +306,7 @@ void printCharacterCurrentDepth() {
     if (depth == 0) {
         (void) strcpy(depths, "Town level");
     } else {
-        (void) sprintf(depths, "%d feet", depth);
+        (void) snprintf(depths, 80, "%d feet", depth);
     }
 
     putStringClearToEOL(depths, Coord_t{23, 65}, Color_Title);
@@ -374,7 +374,7 @@ void printCharacterMovementState() {
         if (py.flags.rest < 0) {
             (void) strcpy(rest_string, "Rest *");
         } else if (config::options::display_counts) {
-            (void) sprintf(rest_string, "Rest %-5d", py.flags.rest);
+            (void) snprintf(rest_string, 16, "Rest %-5d", py.flags.rest);
         } else {
             (void) strcpy(rest_string, "Rest");
         }
@@ -388,7 +388,7 @@ void printCharacterMovementState() {
         char repeat_string[16];
 
         if (config::options::display_counts) {
-            (void) sprintf(repeat_string, "Repeat %-3d", game.command_count);
+            (void) snprintf(repeat_string, 16, "Repeat %-3d", game.command_count);
         } else {
             (void) strcpy(repeat_string, "Repeat");
         }
@@ -665,7 +665,7 @@ void printCharacterAbilities() {
         py.misc.saving_throw + playerStatAdjustmentWisdomIntelligence(PlayerAttr::A_INT) + (class_level_adj[py.misc.class_id][PlayerClassLevelAdj::DEVICE] * py.misc.level / 3);
 
     vtype_t xinfra = {'\0'};
-    (void) sprintf(xinfra, "%d feet", py.flags.see_infra * 10);
+    (void) snprintf(xinfra, 80, "%d feet", py.flags.see_infra * 10);
 
     putString("(Miscellaneous Abilities)", Coord_t{15, 25});
     putString("Fighting    :", Coord_t{16, 1});
@@ -804,7 +804,7 @@ void displaySpellsList(const int *spell_ids, int number_of_choices, bool comment
         }
 
         vtype_t out_val = {'\0'};
-        (void) sprintf(out_val, "  %c) %-30s%2d %4d %3d%%%s", spell_char, spell_names[spell_id + consecutive_offset], spell.level_required, spell.mana_required,
+        (void) snprintf(out_val, 80, "  %c) %-30s%2d %4d %3d%%%s", spell_char, spell_names[spell_id + consecutive_offset], spell.level_required, spell.mana_required,
                        spellChanceOfSuccess(spell_id), p);
         putStringClearToEOL(out_val, Coord_t{2 + i, col});
     }
@@ -815,7 +815,7 @@ static void playerGainLevel() {
     py.misc.level++;
 
     vtype_t msg = {'\0'};
-    (void) sprintf(msg, "Welcome to level %d.", (int) py.misc.level);
+    (void) snprintf(msg, 80, "Welcome to level %d.", (int) py.misc.level);
     printMessage(msg);
 
     playerCalculateHitPoints();

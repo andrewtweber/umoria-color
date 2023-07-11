@@ -208,7 +208,8 @@ void showScoresScreen() {
         clearScreen();
         // Put twenty scores on each page, on lines 2 through 21.
         while ((feof(highscore_fp) == 0) && i < 21) {
-            (void) sprintf(msg,                                               //
+            (void) snprintf(msg,                                              //
+                           100,                                               //
                            "%-4d%8d %-19.19s %c %-10.10s %-7.7s%3d %-22.22s", //
                            rank,                                              //
                            score.points,                                      //
